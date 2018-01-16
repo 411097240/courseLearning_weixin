@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.able.courseLearning_weixin.dao.IExamPaperDAO" >
+  <resultMap id="BaseResultMap" type="com.able.courseLearning_weixin.pojo.ExamPaper" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="teacherName" property="teacherName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 一个张试卷对应多个题目  -->
+   <resultMap id="paperMessage" type="com.able.courseLearning_weixin.pojo.ExamPaper" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="teacherName" property="teacherName" jdbcType="VARCHAR" />
+
+    <collection property="choiceQuestion" ofType="com.able.courseLearning_weixin.pojo.ChoiceQuestion">
+    	 <id column="cqId" property="cqId" jdbcType="INTEGER" />
+	    <result column="cqQuestion" property="cqQuestion" jdbcType="VARCHAR" />
+	    <result column="cqOne" property="cqOne" jdbcType="VARCHAR" />
+	    <result column="cqTwo" property="cqTwo" jdbcType="VARCHAR" />
+	    <result column="cqThree" property="cqThree" jdbcType="VARCHAR" />
+	    <result column="cqFour" property="cqFour" jdbcType="VARCHAR" />
+	    <result column="cqQuestionType" property="cqQuestionType" jdbcType="INTEGER" />
+	    <result column="cqPaperId" property="cqPaperId" jdbcType="INTEGER" />
+	    <result column="cqScorePre" property="cqScorePre" jdbcType="INTEGER" />
+    </collection>
+    
+     <collection property="subjectiveQuestion" ofType="com.able.courseLearning_weixin.pojo.SubjectiveQuestion">
+    	 <id column="sqId" property="sqId" jdbcType="INTEGER" />
+	    <result column="sqQuestion" property="sqQuestion" jdbcType="VARCHAR" />
+	    <result column="sqAnswer" property="sqAnswer" jdbcType="VARCHAR" />
+	    <result column="sqQuestionType" property="sqQuestionType" jdbcType="INTEGER" />
+	    <result column="sqPaperId" property="sqPaperId" jdbcType="INTEGER" />
+	    <result column="sqScorePre" property="sqScorePre" jdbcType="INTEGER" />
+    </collection>
+  </resultMap>
+  
+  <!-- 多张试卷对应多个用户状态 -->
+  <resultMap id="notCorrectingPaper" type="com.able.courseLearning_weixin.pojo.PaperList" >
+	  <collection property="examPaper" ofType="com.able.courseLearning_weixin.pojo.ExamPaper">
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="title" property="title" jdbcType="VARCHAR" />
+	    <result column="teacherName" property="teacherName" jdbcType="VARCHAR" />
+	  </collection>
+    
+    <collection property="userPaper" ofType="com.able.courseLearning_weixin.pojo.UserPaper">
+    	<id column="id" property="id" jdbcType="INTEGER" />
+	     <result column="userName" property="userName" jdbcType="VARCHAR" />
+		 <result column="paperId" property="paperId" jdbcType="INTEGER" />
+		 <result column="state" property="state" jdbcType="INTEGER" />
+		 <result column="score" property="score" jdbcType="INTEGER" />
+    </collection>
+</resultMap>
+
+<!-- 一张卷子多个答案 -->
+<resultMap id="answerOfPaper" type="com.able.courseLearning_weixin.pojo.ExamPaper" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="title" property="title" jdbcType="VARCHAR" />
+	    <result column="teacherName" property="teacherName" jdbcType="VARCHAR" />
+    
+    <collection property="questionAnswer" ofType="com.able.courseLearning_weixin.pojo.QuestionAnswer">
+    	<id column="qaId" property="qaId" jdbcType="INTEGER" />
+	     <result column="qaUserName" property="qaUserName" jdbcType="VARCHAR" />
+		 <result column="qaPaperId" property="qaPaperId" jdbcType="INTEGER" />
+		 <result column="qaQuestionType" property="qaQuestionType" jdbcType="INTEGER" />
+		 <result column="qaQuestionId" property="qaQuestionId" jdbcType="INTEGER" />
+		 <result column="qaAnswer" property="qaAnswer" jdbcType="VARCHAR" />
+    </collection>
+    <collection property="choiceQuestion" ofType="com.able.courseLearning_weixin.pojo.ChoiceQuestion">
+    	 <id column="cqId" property="cqId" jdbcType="INTEGER" />
+	    <result column="cqQuestion" property="cqQuestion" jdbcType="VARCHAR" />
+	    <result column="cqOne" property="cqOne" jdbcType="VARCHAR" />
+	    <result column="cqTwo" property="cqTwo" jdbcType="VARCHAR" />
+	    <result column="cqThree" property="cqThree" jdbcType="VARCHAR" />
+	    <result column="cqFour" property="cqFour" jdbcType="VARCHAR" />
+	    <result column="cqQuestionType" property="cqQuestionType" jdbcType="INTEGER" />
+	    <result column="cqPaperId" property="cqPaperId" jdbcType="INTEGER" />
+	    <result column="cqScorePre" property="cqScorePre" jdbcType="INTEGER" />
+    </collection>
+</resultMap>
+  
+  <select id="findExamPaperByPaperId" resultMap="paperMessage" parameterType="com.able.courseLearning_weixin.pojo.ExamPaper">
+  		SELECT
+	    *
+        FROM
+		choice_question cq,
+		exam_paper ep
+       WHERE
+	    ep.id = cq.cqPaperId
+	    and ep.id = #{id,jdbcType=INTEGER}
+  </select>
+ <!-- 批量插入答案 -->
+  <insert id="answerInsert">  
+       insert into question_answer(qaUserName,qaPaperId,qaQuestionId,qaAnswer,qaQuestionType)  
+     values  
+       <foreach collection="list" item="item" index="index" separator=",">  
+        ( #{item.qaUserName},#{item.qaPaperId},#{item.qaQuestionId},#{item.qaAnswer},#{item.qaQuestionType} )  
+       </foreach>  
+  </insert>
+  
+  <!-- 提交试卷分数 -->
+  <update id="submitScore">
+  		UPDATE user_paper up
+			SET up.score = #{2}
+		WHERE
+			up.userName = #{0}
+			AND up.paperId = #{1}; 
+  </update>
+  
+  
+  <!-- 未批改试卷列表 -->
+  <select id="findPaperListNotCorrecting" resultMap="notCorrectingPaper">
+  	SELECT
+		ep.title title,
+		ep.teacherName teacherName,
+		up.paperId paperId,
+		up.userName userName
+	FROM
+		exam_paper ep,
+		user_paper up
+	WHERE
+		up.paperId = ep.id
+	    AND up.score = #{0};
+  </select>
+  
+  
+  <!-- 提交试卷时根据用户名和paperId更新user_paper表状态 -->
+  <update id="updateUserPaper">
+  		UPDATE user_paper up
+			SET up.score = -1,
+				up.state = 1
+		WHERE
+			up.userName = #{0}
+			AND up.paperId = #{1}; 
+  </update>
+  
+  <!-- 指定用户和试卷id的所有选择题答案 -->
+  <select id="findSubmitPaperMessage" resultMap="answerOfPaper">
+ SELECT
+		*
+FROM
+	exam_paper ep,
+	choice_question cq,
+	question_answer qa
+WHERE
+
+	(qa.qaQuestionId = cq.cqId and qa.qaQuestionType = cq.cqQuestionType)
+   AND qa.qaPaperId =#{1} AND qa.qaUserName=#{0} AND ep.id=qa.qaPaperId;
+  </select>
+  <!-- 找到试卷表中的最大paperId -->
+  <select id="findMaxPaperId" resultType="com.able.courseLearning_weixin.pojo.ExamPaper">
+  select MAX(id) id from exam_paper
+  </select>
+ 
+ 
+ <!--  在试卷表添加一张试卷信息-->
+ 	<insert id="insertPaper">  
+       INSERT INTO exam_paper (title, teacherName, id)
+        VALUES
+	   (#{1}, #{0},#{2})
+      
+  </insert>
+</mapper>

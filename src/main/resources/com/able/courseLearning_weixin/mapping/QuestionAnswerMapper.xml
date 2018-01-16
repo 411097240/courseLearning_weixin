@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.able.courseLearning_weixin.dao.IExamPaperDAO" >
+  
+ 
+  
+  <select id="cheakSubmit" resultType="java.lang.Integer" >
+    select 
+    count(qaPaperId)
+    from question_answer qa
+    where qa.qaUserName = #{0}
+    and qa.qaPaperId = #{1}
+  </select>
+  
+  
+  <!-- 批量插入选择题 -->
+  <insert id="questionInsert">  
+       insert into choice_question(cqQuestion,cqOne,cqTwo,cqThree,cqFour,cqQuestionType,cqPaperId,cqScorePre)  
+     values  
+       <foreach collection="questionList" item="item" index="index" separator=",">  
+        ( #{item.cqQuestion},#{item.cqOne},#{item.cqTwo},#{item.cqThree},#{item.cqFour},#{item.cqQuestionType},#{item.cqPaperId},#{item.cqScorePre} )  
+       </foreach>  
+  </insert>
+  
+ 
+ 
+ 
+</mapper>

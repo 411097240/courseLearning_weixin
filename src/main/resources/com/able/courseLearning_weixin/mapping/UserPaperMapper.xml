@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.able.courseLearning_weixin.dao.IExamPaperDAO" >
+  
+  <!-- 一个学生对应多张试卷  -->
+  <resultMap type="com.able.courseLearning_weixin.pojo.UserPaper" id="paper">
+  	     <id column="id" property="id" jdbcType="INTEGER" />
+	     <result column="userName" property="userName" jdbcType="VARCHAR" />
+		 <result column="paperId" property="paperId" jdbcType="INTEGER" />
+		 <result column="state" property="state" jdbcType="INTEGER" />
+		 <result column="score" property="score" jdbcType="INTEGER" />
+
+    <collection property="examPaper" ofType="com.able.courseLearning_weixin.pojo.ExamPaper">
+    	 <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="title" property="title" jdbcType="VARCHAR" />
+	    <result column="teacherName" property="teacherName" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <!-- 找到已经考试的试卷信息 -->
+  <select id="findExamPaperByUser" resultMap="paper" parameterType="com.able.courseLearning_weixin.pojo.UserPaper">
+  	SELECT
+	ep.id id,
+	up.userName userName,
+	up.state state,
+	ep.title title,
+	ep.teacherName teacherName,
+	up.score score
+FROM
+	exam_paper ep,
+	user_paper up
+WHERE
+	ep.id = up.paperId
+	AND up.state = #{1}
+	AND up.userName = #{0}
+  </select>
+  
+ 
+  <select id="findAllStudent" resultType="com.able.courseLearning_weixin.pojo.User"  >
+    SELECT userName userName from user_login where grade=1;
+  </select>
+  
+  <!-- 批量更新user_paper表 -->
+  <insert id="insertUserPaper">  
+       insert into user_paper
+       (userName,paperId,state)  
+        values  
+       <foreach collection="users" item="item" index="index" separator=",">  
+        ( #{item.userName},#{1},0)  
+       </foreach>  
+  </insert>
+ 
+ 
+</mapper>
+  
+  
+  
