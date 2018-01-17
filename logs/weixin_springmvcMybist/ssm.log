@@ -196,3 +196,5 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:87)
 	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessPropertyValues(CommonAnnotationBeanPostProcessor.java:304)
 	... 54 more
+[INFO] [2018-01-17 16:48:36][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
+[INFO] [2018-01-17 16:56:05][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
