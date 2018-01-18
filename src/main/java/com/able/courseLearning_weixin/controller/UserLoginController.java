@@ -41,7 +41,7 @@ public class UserLoginController {
 				return mav;
 		}
 		
-		 mav = new ModelAndView("index");
+		 mav = new ModelAndView("h5/index");
 		 mav.addObject("msg","用户名或密码错误");
 		 return mav;
 	}
@@ -53,7 +53,7 @@ public class UserLoginController {
 	
 	@RequestMapping("/index")	
 	public String toIndex(){
-		return "index";
+		return "h5/index";
 	}
 	
 	
@@ -89,7 +89,7 @@ public class UserLoginController {
 		//是否注册成功
 		boolean flag = loginservice.isRegister(user);
 		if(flag){
-			ModelAndView mav = new ModelAndView("index");
+			ModelAndView mav = new ModelAndView("h5/index");
 			mav.addObject("msg", "注册成功，现在登录！");
 			return mav;
 		}else{

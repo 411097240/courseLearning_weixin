@@ -1,12 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>登陆丨Sharelink</title>
+<title>中南民大学习交流平台</title>
 <link rel="stylesheet" href="css/style.css">
 <body>
 
 <div class="login-container">
-	<h1>在线考试系统</h1>
+	<h1>中南民大学习交流平台</h1>
 	
 	<div class="connect">
 		<p>Link the world. Share to world.</p>

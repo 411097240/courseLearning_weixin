@@ -44,7 +44,7 @@ public class MenuManager {
 		ViewButton btn11 = new ViewButton();
 		btn11.setName("课堂签到");
 		btn11.setType("view");
-		btn11.setUrl("http://weixin.411097240qqcom.yxnat.softdev.top/courseLearning_weixin/index");
+		btn11.setUrl("http://www.baidu.com");
 
 //		ViewButton btn12 = new ViewButton();
 //		btn12.setName("获得信息");
@@ -62,19 +62,19 @@ public class MenuManager {
 //		btn21.setUrl("http://www.baidu.com");
 
 		ViewButton btn22 = new ViewButton();
-		btn22.setName("菜单2.2");
+		btn22.setName("课堂直播");
 		btn22.setType("view");
 		btn22.setUrl("http://www.baidu.com");
 
 		ViewButton btn23 = new ViewButton();
-		btn23.setName("菜单2.3");
+		btn23.setName("课程论坛");
 		btn23.setType("view");
 		btn23.setUrl("http://www.baidu.com");
 
 		ViewButton btn31 = new ViewButton();
-		btn31.setName("菜单3.1");
+		btn31.setName("申请入班");
 		btn31.setType("view");
-		btn31.setUrl("http://www.baidu.com");
+		btn31.setUrl("http://weixin.411097240qqcom.yxnat.softdev.top/courseLearning_weixin/toH5Register");
 
 /*		ViewButton btn32 = new ViewButton();
 		btn32.setName("账户查询");
@@ -91,15 +91,15 @@ public class MenuManager {
 		mainBtn1.setSub_button( new Button[] {btn11});
 
 		ComplexButton mainBtn2 = new ComplexButton();
-		mainBtn2.setName("课堂直播");
+		mainBtn2.setName("课程交流");
 		mainBtn2.setSub_button(new ViewButton[] {  btn22, btn23 });
 
 		ComplexButton mainBtn3 = new ComplexButton();
-		mainBtn3.setName("课程交流");
+		mainBtn3.setName("申请入班");
 		mainBtn3.setSub_button(new ViewButton[] { btn31 });
 
 		Menu menu = new Menu();
-		menu.setButton(new Button[] { btn11, mainBtn2, mainBtn3 });
+		menu.setButton(new Button[] { btn11, mainBtn2, btn31 });
 		return menu;
 	}
 }
