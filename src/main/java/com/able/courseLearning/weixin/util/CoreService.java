@@ -110,8 +110,8 @@ public class CoreService {
 				 */
 				else if (eventType.equals(MessageUtil.EVENT_TYPE_LOCATION)) {
 					// TODO 处理上报地理位置事件
-					//System.out.println("openId:"+FromUserName);
-					//System.out.println("上报地理位置事件  经度："+ Longitude+"   纬度："+Latitude);
+					System.out.println("openId:"+FromUserName);
+					System.out.println("上报地理位置事件  经度："+ Longitude+"   纬度："+Latitude);
 					//保存经度
 					//SessionList.setSeesion(FromUserName);
 					//SessionList.setSeesion("Longitude", Longitude,FromUserName);

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.able.courseLearning_weixin.dao.validate.IUserRegisterDao" >
+
+  
+ 
+  
+
+  <insert id="insertUser" parameterType="com.able.courseLearning_weixin.common.pojo.AllUser" >
+   
+      insert into tbl_user (schoolCode, realName,power,createTime)
+    values ( #{schoolCode}, #{realName},#{power} ,NOW()
+      )
+  </insert>
+
+    <select id="selectUserByOpenId" resultType="java.lang.Integer" parameterType="java.lang.String" >
+        select
+        count(1)
+        from tbl_user
+        where openId = #{openId}
+    </select>
+  
+ 
+ 
+ 
+</mapper>

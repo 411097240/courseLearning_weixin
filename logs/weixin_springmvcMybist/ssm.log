@@ -202,3 +202,10 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 [INFO] [2018-01-18 16:16:09][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
 [INFO] [2018-01-18 16:22:24][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
 [INFO] [2018-01-18 17:10:42][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
+[INFO] [2018-01-19 15:51:40][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
+[INFO] [2018-01-19 17:26:13][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
+[INFO] [2018-01-19 17:32:04][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
+[ERROR] [2018-01-19 17:40:44][com.able.courseLearning.weixin.util.WeixinUtil]创建菜单失败 errcode:40017 errmsg:invalid button type hint: [bGi1.A0841vr26]
+[INFO] [2018-01-19 17:40:44][com.able.courseLearning.weixin.test.MenuManager]菜单创建失败，错误码：40017
+[INFO] [2018-01-19 17:42:44][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
+[INFO] [2018-01-19 17:46:05][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
