@@ -1,4 +1,4 @@
-package com.able.courseLearning_weixin.service.validate.impl;
+package com.able.courseLearning_weixin.service.validate;
 
 import com.able.courseLearning_weixin.common.pojo.AllUser;
 

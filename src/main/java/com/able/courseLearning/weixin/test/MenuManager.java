@@ -75,7 +75,7 @@ public class MenuManager {
 		ViewButton btn31 = new ViewButton();
 		btn31.setName("申请入班");
 		btn31.setType("view");
-		btn31.setUrl("http://weixin.411097240qqcom.yxnat.softdev.top/courseLearning_weixin/toH5Register");
+		btn31.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfc8eae6dd688043e&redirect_uri=http%3a%2f%2fweixin.411097240qqcom.yxnat.softdev.top%2fcourseLearning_weixin%2ftoH5Register&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
 
 /*		ViewButton btn32 = new ViewButton();
 		btn32.setName("账户查询");

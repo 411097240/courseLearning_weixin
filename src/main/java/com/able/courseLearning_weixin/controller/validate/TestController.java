@@ -2,7 +2,7 @@ package com.able.courseLearning_weixin.controller.validate;
 
 import com.able.courseLearning_weixin.common.pojo.AllUser;
 import com.able.courseLearning_weixin.dao.validate.IUserRegisterDao;
-import com.able.courseLearning_weixin.service.validate.impl.IUserRegisterService;
+import com.able.courseLearning_weixin.service.validate.IUserRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.ShardedJedis;
-import redis.clients.jedis.ShardedJedisPool;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,16 +22,25 @@ public class TestController {
     @Resource
     IUserRegisterService userRegisterService;
     @Autowired
-    private ShardedJedisPool shardedJedisPool;//注入ShardedJedisPool
+    private JedisPool jedisPool;//注入JedisPool
     @ResponseBody
     @RequestMapping(value = "test",method = RequestMethod.GET)
     public Object test(HttpServletRequest request, HttpServletResponse response){
        // return userRegisterService.doRegister(new AllUser(),request,response);
-        ShardedJedis shardedJedis = shardedJedisPool.getResource();
+        Jedis jedis = jedisPool.getResource();
         //根据键值获得数据
-        String result = shardedJedis.get("key2");
-        shardedJedis.close();
-
+        String result = jedis.get("key2");
+        jedis.close();
         return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "test1",method = RequestMethod.GET)
+    public Object test1(String userName,String schoolCode,HttpServletRequest request, HttpServletResponse response){
+         AllUser user = new AllUser();
+         user.setSchoolCode(schoolCode);
+         user.setRealName(userName);
+         return userRegisterService.doRegister(user,request,response);
+
     }
 }

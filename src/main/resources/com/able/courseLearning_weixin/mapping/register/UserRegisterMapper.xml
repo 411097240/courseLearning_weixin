@@ -8,8 +8,8 @@
 
   <insert id="insertUser" parameterType="com.able.courseLearning_weixin.common.pojo.AllUser" >
    
-      insert into tbl_user (schoolCode, realName,power,createTime)
-    values ( #{schoolCode}, #{realName},#{power} ,NOW()
+      insert into tbl_user (schoolCode, openId,realName,power,createTime)
+    values ( #{schoolCode},#{openId}, #{realName},#{power} ,NOW()
       )
   </insert>
 

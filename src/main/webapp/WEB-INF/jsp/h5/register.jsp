@@ -12,7 +12,7 @@
 		<p class="red">${msg}</p>	
 	</div>
 	
-	<form action="joinClass" method="post" id="registerForm">
+	<form action="joinClass" method="Get" id="registerForm">
 		<div>
 			<p>选择班级</p>
 			<select name="select" id="select_k1" class="xla_k" autocomplete="off">
@@ -27,6 +27,7 @@
 		<div>
 			<input type="text" name="userName" class="username" placeholder="您的真实姓名" autocomplete="off"/>
 		</div>
+		<input type="hidden" value="${openId}">
 		<button id="submit" type="submit">提交申请</button>
 	</form>
 

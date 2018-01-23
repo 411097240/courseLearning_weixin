@@ -8,10 +8,9 @@
 
     <!-- 引入jedis的properties配置文件 -->
     <!--如果你有多个数据源需要通过<context:property-placeholder管理，且不愿意放在一个配置文件里，那么一定要加上ignore-unresolvable=“true"-->
-  <context:property-placeholder location="classpath:properties/redis.properties" ignore-unresolvable="true" />
-     <!-- 引入配置文件 -->
+    <context:property-placeholder location="classpath:properties/redis.properties" ignore-unresolvable="true" />
 
-    <!--shardedJedisPool的相关配置-->
+    <!--Jedis连接池的相关配置-->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <!--新版是maxTotal，旧版是maxActive-->
         <property name="maxTotal">
@@ -24,14 +23,12 @@
         <property name="testOnReturn" value="true"/>
     </bean>
 
-    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool"  scope="singleton">
-        <constructor-arg index="0" ref="jedisPoolConfig" />
-        <constructor-arg index="1">
-            <list>
-                <bean class="redis.clients.jedis.JedisShardInfo">
-                    <constructor-arg name="host" value="${redis.uri}" />
-                </bean>
-            </list>
-        </constructor-arg>
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig" />
+        <constructor-arg name="host" value="${redis.host}" />
+        <constructor-arg name="port" value="${redis.port}" type="int" />
+        <constructor-arg name="timeout" value="${redis.timeout}" type="int" />
+        <constructor-arg name="password" value="${redis.password}" />
+        <constructor-arg name="database" value="${redis.database}" type="int" />
     </bean>
 </beans>
