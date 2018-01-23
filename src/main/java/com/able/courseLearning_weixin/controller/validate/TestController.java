@@ -26,12 +26,12 @@ public class TestController {
     @ResponseBody
     @RequestMapping(value = "test",method = RequestMethod.GET)
     public Object test(HttpServletRequest request, HttpServletResponse response){
-       // return userRegisterService.doRegister(new AllUser(),request,response);
-        Jedis jedis = jedisPool.getResource();
+        return userRegisterDao.selectUserByOpenId("123");
+        //Jedis jedis = jedisPool.getResource();
         //根据键值获得数据
-        String result = jedis.get("key2");
-        jedis.close();
-        return result;
+        //String result = jedis.get("key2");
+       // jedis.close();
+        //return result;
     }
 
     @ResponseBody

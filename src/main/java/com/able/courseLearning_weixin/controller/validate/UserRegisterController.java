@@ -68,18 +68,25 @@ public class UserRegisterController {
 	@RequestMapping("joinClass")
 	public  ModelAndView doRegister(String openId,String userName,String schoolCode,HttpServletRequest request, HttpServletResponse response) {
 		String IuserName = org.springframework.web.util.HtmlUtils.htmlEscape(userName);
-		System.out.print(schoolCode);
-		System.out.print(userName);
+		System.out.print("------openId--------"+openId);
 		//判断输入合法性
 		if ("".equals(userName) || "".equals(schoolCode)) {
 			ModelAndView mav = new ModelAndView("h5/register");
 			mav.addObject("msg", "学号和姓名不能为空");
 			return mav;
 		}
+		//如果没有openId直接返回
+		if(openId==""){
+			ModelAndView mav = new ModelAndView("h5/register");
+			mav.addObject("msg", "获取微信信息失败，返回微信菜单，重试");
+			return mav;
+		}
 		AllUser user = new AllUser();
 		user.setOpenId(openId);
 		user.setSchoolCode(schoolCode);
 		user.setRealName(userName);
+		//默认权限学生
+		user.setPower(3);
 		String message =  userRegisterService.doRegister(user,request,response);
 		ModelAndView mav = new ModelAndView("h5/register");
 		mav.addObject("msg", message);

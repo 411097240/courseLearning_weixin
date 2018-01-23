@@ -27,7 +27,7 @@
 		<div>
 			<input type="text" name="userName" class="username" placeholder="您的真实姓名" autocomplete="off"/>
 		</div>
-		<input type="hidden" value="${openId}">
+		<input type="hidden" name="openId" value="${openId}">
 		<button id="submit" type="submit">提交申请</button>
 	</form>
 

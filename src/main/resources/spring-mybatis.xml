@@ -13,16 +13,20 @@
 	<context:component-scan base-package="com.able.courseLearning_weixin" />
 
 	<!-- 引入配置文件 -->
+	<!--
 	<bean id="propertyConfigurer"
 		  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:jdbc.properties" />
 	</bean>
+	-->
+
+	<context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		  destroy-method="close">
 		<property name="driverClassName" value="${driver}" />
 		<property name="url" value="${url}" />
-		<property name="username" value="${username}" />
+		<property name="username" value="${user}" />
 		<property name="password" value="soft" />
 		<!-- 初始化连接大小 -->
 		<property name="initialSize" value="${initialSize}"></property>
