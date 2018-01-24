@@ -17,7 +17,7 @@
         select
         count(1)
         from tbl_user
-        where openId = #{openId}
+        where openId = #{openId} AND isDelete = 0
     </select>
   
  

@@ -47,7 +47,7 @@
 		<property name="mapperLocations" >
 		<list>
 			<value>classpath:com/able/courseLearning_weixin/mapping/*.xml</value>
-			<value>classpath:com/able/courseLearning_weixin/mapping/register/*.xml</value>
+			<value>classpath:com/able/courseLearning_weixin/mapping/common/*.xml</value>
 		</list>
 		</property>
 	</bean>

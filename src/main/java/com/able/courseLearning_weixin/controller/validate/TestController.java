@@ -1,6 +1,7 @@
 package com.able.courseLearning_weixin.controller.validate;
 
 import com.able.courseLearning_weixin.common.pojo.AllUser;
+import com.able.courseLearning_weixin.dao.common.IClassDao;
 import com.able.courseLearning_weixin.dao.validate.IUserRegisterDao;
 import com.able.courseLearning_weixin.service.validate.IUserRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,14 @@ public class TestController {
     IUserRegisterDao userRegisterDao;
     @Resource
     IUserRegisterService userRegisterService;
+    @Resource
+    IClassDao classDao;
     @Autowired
     private JedisPool jedisPool;//注入JedisPool
+    @RequestMapping("test")
     @ResponseBody
-    @RequestMapping(value = "test",method = RequestMethod.GET)
     public Object test(HttpServletRequest request, HttpServletResponse response){
-        return userRegisterDao.selectUserByOpenId("123");
+        return classDao.findAllClass();
         //Jedis jedis = jedisPool.getResource();
         //根据键值获得数据
         //String result = jedis.get("key2");

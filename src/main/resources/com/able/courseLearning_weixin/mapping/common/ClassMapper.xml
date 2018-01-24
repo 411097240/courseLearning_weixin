@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.able.courseLearning_weixin.dao.common.IClassDao" >
+    <resultMap id="BaseResultMap" type="com.able.courseLearning_weixin.common.pojo.ClassModel" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="className" property="className" jdbcType="VARCHAR" />
+        <result column="teacherName" property="teacherName" jdbcType="VARCHAR" />
+        <result column="classImg" property="classImg" jdbcType="VARCHAR" />
+        <result column="createTime" property="createTime"  />
+        <result column="updateTime" property="updateTime"  />
+        <result column="isDelete" property="isDelete"  />
+    </resultMap>
+
+    <select id="findAllClass" resultMap="BaseResultMap"  >
+        select
+        *
+        from tbl_class
+        where isDelete = 0
+    </select>
+  
+ 
+ 
+ 
+</mapper>

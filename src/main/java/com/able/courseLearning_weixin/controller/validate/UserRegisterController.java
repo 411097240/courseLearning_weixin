@@ -4,6 +4,8 @@ package com.able.courseLearning_weixin.controller.validate;
 import com.able.courseLearning.weixin.pojo.WeixinOauth2Token;
 import com.able.courseLearning.weixin.util.AdvancedUtil;
 import com.able.courseLearning_weixin.common.pojo.AllUser;
+import com.able.courseLearning_weixin.common.pojo.ClassModel;
+import com.able.courseLearning_weixin.dao.common.IClassDao;
 import com.able.courseLearning_weixin.helper.MD5Utils;
 import com.able.courseLearning_weixin.pojo.User;
 import com.able.courseLearning_weixin.service.IUserLoginService;
@@ -17,6 +19,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: lx
@@ -28,11 +34,15 @@ public class UserRegisterController {
 	private IUserLoginService loginservice;
 	@Resource
 	IUserRegisterService userRegisterService;
+	@Resource
+	IClassDao classDao;
 	
 	@RequestMapping(value = "toH5Register",method = RequestMethod.GET)
 	public ModelAndView toH5Register(HttpServletRequest request, HttpServletResponse response){
-
+		String msg = request.getParameter("msg");
+		System.out.print("msg:_____________"+msg);
 		String openId = null;
+		List<ClassModel> classList = classDao.findAllClass();
 		//得到openId
 		try {
 			request.setCharacterEncoding("utf-8");
@@ -58,7 +68,17 @@ public class UserRegisterController {
 			System.out.print("openId:"+openId);
 		}
 		ModelAndView mav = new ModelAndView("h5/register");
+		if(classList!=null&&classList.size()>0){
+			mav.addObject("classList", classList);
+		}
 		mav.addObject("openId", openId);
+		if("1".equals(msg)){
+			mav.addObject("msg", "用户名和密码不能为空");
+		}else if("2".equals(msg)){
+			mav.addObject("msg", "获取微信信息失败，返回微信菜单，重试");
+		}else{
+			mav.addObject("msg", msg);
+		}
 		return mav;
 	}
 	
@@ -71,14 +91,12 @@ public class UserRegisterController {
 		System.out.print("------openId--------"+openId);
 		//判断输入合法性
 		if ("".equals(userName) || "".equals(schoolCode)) {
-			ModelAndView mav = new ModelAndView("h5/register");
-			mav.addObject("msg", "学号和姓名不能为空");
+			ModelAndView mav = new ModelAndView("redirect:https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfc8eae6dd688043e&redirect_uri=http%3a%2f%2fweixin.411097240qqcom.yxnat.softdev.top%2fcourseLearning_weixin%2ftoH5Register?msg=1&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
 			return mav;
 		}
 		//如果没有openId直接返回
 		if(openId==""){
-			ModelAndView mav = new ModelAndView("h5/register");
-			mav.addObject("msg", "获取微信信息失败，返回微信菜单，重试");
+			ModelAndView mav = new ModelAndView("redirect:https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfc8eae6dd688043e&redirect_uri=http%3a%2f%2fweixin.411097240qqcom.yxnat.softdev.top%2fcourseLearning_weixin%2ftoH5Register?msg=2&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
 			return mav;
 		}
 		AllUser user = new AllUser();
@@ -88,8 +106,8 @@ public class UserRegisterController {
 		//默认权限学生
 		user.setPower(3);
 		String message =  userRegisterService.doRegister(user,request,response);
-		ModelAndView mav = new ModelAndView("h5/register");
-		mav.addObject("msg", message);
+		System.out.print("----------------------"+message);
+		ModelAndView mav = new ModelAndView("redirect:https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfc8eae6dd688043e&redirect_uri=http%3a%2f%2fweixin.411097240qqcom.yxnat.softdev.top%2fcourseLearning_weixin%2ftoH5Register?msg="+message+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
 		return mav;
 		
 	}

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿<%@ page language="java" contentType="text/html; charset=utf-8"
+		 pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>中南民大学习交流平台</title>
@@ -16,9 +19,9 @@
 		<div>
 			<p>选择班级</p>
 			<select name="select" id="select_k1" class="xla_k" autocomplete="off">
-				<option value="数据结构1" autocomplete="off">数据结构1</option>
-				<option value="计算机网络1" autocomplete="off">计算机网络1</option>
-				<option value="离散数学2" autocomplete="off">离散数学2</option>
+				<c:forEach items="${classList}" var="item">
+					<option value="${item.className}" autocomplete="off">${item.className}</option>
+				</c:forEach>
 			</select>
 		</div>
 		<div>
