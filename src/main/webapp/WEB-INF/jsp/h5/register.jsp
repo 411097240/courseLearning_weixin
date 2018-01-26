@@ -18,9 +18,9 @@
 	<form action="joinClass" method="Get" id="registerForm">
 		<div>
 			<p>选择班级</p>
-			<select name="select" id="select_k1" class="xla_k" autocomplete="off">
+			<select name="classId" id="select_k1" class="xla_k" autocomplete="off">
 				<c:forEach items="${classList}" var="item">
-					<option value="${item.className}" autocomplete="off">${item.className}</option>
+					<option value="${item.id}" autocomplete="off">${item.className}</option>
 				</c:forEach>
 			</select>
 		</div>

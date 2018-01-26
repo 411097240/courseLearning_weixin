@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.able.courseLearning_weixin.dao.common.IClassUnionStudentDao" >
+    <resultMap id="BaseResultMap" type="com.able.courseLearning_weixin.common.pojo.ClassUnionStudent" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="classId" property="classId"  />
+        <result column="openId" property="openId"  />
+        <result column="isChecked" property="isChecked"  />
+        <result column="createTime" property="createTime"  />
+        <result column="updateTime" property="updateTime"  />
+        <result column="isDelete" property="isDelete"  />
+    </resultMap>
+
+    <select id="findStudentByClassId" resultMap="BaseResultMap"  >
+        select
+        *
+        from tbl_class_user
+        where classId = #{0} AND isDelete = 0
+    </select>
+
+    <insert id="insertStudentToClass" >
+        insert into tbl_class_user (classId, openId,isChecked,createTime)
+    values ( #{0},#{1},0,NOW()
+      )
+    </insert>
+  <update id="updateStudentStatus">
+      UPDATE tbl_class_user up
+			SET up.isChecked = 1
+		WHERE
+			up.openId = #{0}
+			AND up.isDelete = 0
+  </update>
+    <select id="findStudentStatus" resultMap="BaseResultMap"  >
+        select
+        *
+        from tbl_class_user
+        where classId = #{0} AND openId = #{1} AND isDelete = 0
+    </select>
+ 
+ 
+</mapper>

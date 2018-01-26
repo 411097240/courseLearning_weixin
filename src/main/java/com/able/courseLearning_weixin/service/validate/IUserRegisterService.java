@@ -6,5 +6,5 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface IUserRegisterService {
-    String doRegister(AllUser user,HttpServletRequest request,HttpServletResponse response);
+    String doRegister(Integer classId,AllUser user,HttpServletRequest request,HttpServletResponse response);
 }

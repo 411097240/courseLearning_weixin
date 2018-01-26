@@ -2,6 +2,7 @@ package com.able.courseLearning_weixin.controller.validate;
 
 import com.able.courseLearning_weixin.common.pojo.AllUser;
 import com.able.courseLearning_weixin.dao.common.IClassDao;
+import com.able.courseLearning_weixin.dao.common.IClassUnionStudentDao;
 import com.able.courseLearning_weixin.dao.validate.IUserRegisterDao;
 import com.able.courseLearning_weixin.service.validate.IUserRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,14 @@ public class TestController {
     IUserRegisterService userRegisterService;
     @Resource
     IClassDao classDao;
+    @Resource
+    IClassUnionStudentDao classUnionStudentDao;
     @Autowired
     private JedisPool jedisPool;//注入JedisPool
     @RequestMapping("test")
     @ResponseBody
-    public Object test(HttpServletRequest request, HttpServletResponse response){
-        return classDao.findAllClass();
+    public Object test(Integer classId){
+        return classUnionStudentDao.findStudentStatus(1,"123456");
         //Jedis jedis = jedisPool.getResource();
         //根据键值获得数据
         //String result = jedis.get("key2");
@@ -43,7 +46,7 @@ public class TestController {
          AllUser user = new AllUser();
          user.setSchoolCode(schoolCode);
          user.setRealName(userName);
-         return userRegisterService.doRegister(user,request,response);
+         return userRegisterService.doRegister(1,user,request,response);
 
     }
 }

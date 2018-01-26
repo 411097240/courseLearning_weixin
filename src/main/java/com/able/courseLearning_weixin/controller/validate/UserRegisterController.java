@@ -77,7 +77,28 @@ public class UserRegisterController {
 		}else if("2".equals(msg)){
 			mav.addObject("msg", "获取微信信息失败，返回微信菜单，重试");
 		}else{
-			mav.addObject("msg", msg);
+			if("3".equals(msg)){
+				mav.addObject("msg", "你已经提交过申请，等待老师审核中！");
+			}
+			if("4".equals(msg)){
+				mav.addObject("msg", "老师已经同意你的申请！");
+			}
+			if("5".equals(msg)){
+				mav.addObject("msg", "申请已提交，等待老师审核！");
+			}
+			if("6".equals(msg)){
+				mav.addObject("msg", "申请提交失败！");
+			}
+			if("7".equals(msg)){
+				mav.addObject("msg", "申请已提交，等待老师审核！");
+			}
+			if("8".equals(msg)){
+				mav.addObject("msg", "申请提交失败！");
+			}
+			if("9".equals(msg)){
+				mav.addObject("msg", "获取微信openId失败，请稍后再试！");
+			}
+
 		}
 		return mav;
 	}
@@ -86,9 +107,10 @@ public class UserRegisterController {
 	
 	//用户注册
 	@RequestMapping("joinClass")
-	public  ModelAndView doRegister(String openId,String userName,String schoolCode,HttpServletRequest request, HttpServletResponse response) {
+	public  ModelAndView doRegister(Integer classId,String openId,String userName,String schoolCode,HttpServletRequest request, HttpServletResponse response) {
 		String IuserName = org.springframework.web.util.HtmlUtils.htmlEscape(userName);
 		System.out.print("------openId--------"+openId);
+		System.out.print("------classId--------"+classId);
 		//判断输入合法性
 		if ("".equals(userName) || "".equals(schoolCode)) {
 			ModelAndView mav = new ModelAndView("redirect:https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfc8eae6dd688043e&redirect_uri=http%3a%2f%2fweixin.411097240qqcom.yxnat.softdev.top%2fcourseLearning_weixin%2ftoH5Register?msg=1&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
@@ -105,7 +127,7 @@ public class UserRegisterController {
 		user.setRealName(userName);
 		//默认权限学生
 		user.setPower(3);
-		String message =  userRegisterService.doRegister(user,request,response);
+		String message =  userRegisterService.doRegister(classId,user,request,response);
 		System.out.print("----------------------"+message);
 		ModelAndView mav = new ModelAndView("redirect:https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfc8eae6dd688043e&redirect_uri=http%3a%2f%2fweixin.411097240qqcom.yxnat.softdev.top%2fcourseLearning_weixin%2ftoH5Register?msg="+message+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
 		return mav;
