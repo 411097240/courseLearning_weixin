@@ -17,6 +17,25 @@
         from tbl_class
         where isDelete = 0
     </select>
+
+    <select id="findClassByOpenId" resultMap="BaseResultMap">
+             SELECT
+            *
+        FROM
+        tbl_class
+        WHERE
+            isDelete = 0
+        AND id IN (
+            SELECT
+                classId
+            FROM
+                tbl_class_user
+            WHERE
+                openId = #{0}
+            AND isDelete = 0
+            AND isChecked = 1
+        )
+    </select>
   
  
  

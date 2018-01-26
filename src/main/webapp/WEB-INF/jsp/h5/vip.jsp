@@ -5,7 +5,7 @@
 <html lang="zh-CN">
 	<head>
 		<meta charset="utf-8">
-		<title>投票</title>
+		<title>课堂签到</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!--苹果手机全屏问题-->
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />        
@@ -21,43 +21,38 @@
 	</head>
 
 	<body>
+
 		<div class="header">
-			<span><a href="#" class="selected">战队1</a></span>
-			<span><a href="#">战队2</a></span>
-			<span><a href="#">战队3</a></span>
-			<span><a href="#">战队4</a></span>
+
 		</div>
+
 		<!--战队1-->
 		<div class="swiper-container" id="page1">
 			<div class="swiper-wrapper" id="list">
 				<!--1-->
-				<div class="swiper-slide"  style="background-image:url('images/v1.png')">
-					
-					<div class="ok">
-						<img src="images/ok.png" alt="">
+				<c:forEach items="${classModelList}" var="item">
+					<div class="swiper-slide"  style="background-image:url('images/v1.png')">
+
+						<div class="renwu">
+							<img src="images/ren1.png" alt="">
+						</div>
+
+						<div class="num">
+							<span class="num-name">老师：</span>
+							<span class="num-xuhao">${item.teacherName}</span>
+						</div>
+						<div class="num">
+							<span class="num-name">课程：</span>
+							<span class="num-xuhao">${item.className}</span>
+						</div>
+						<div class="detail" data-source="mv/1.mp4">
+							<img src="images/detail1.png" alt="">
+						</div>
+						<div class="toupiao" onClick="swal('投票成功!', '非常感谢,么么哒！', 'success')">
+							<img src="images/vote2.png" alt="">
+						</div>
 					</div>
-					<div class="renwu">
-						<img src="images/ren1.png" alt="">
-					</div>
-					<div class="num">
-						<span class="num-name">选号：</span>
-						<span class="num-xuhao">001</span>
-					</div>
-					<div class="num">
-						<span class="num-name">选号：</span>
-						<span class="num-xuhao">001</span>
-					</div>
-					<div class="title">
-						<span class="titlt-l">球队：</span>
-						<span class="titlt-r">球队名称球队名称</span>
-					</div>
-					<div class="detail" data-source="mv/1.mp4">
-						<img src="images/detail1.png" alt="">
-					</div>
-					<div class="toupiao" onClick="swal('投票成功!', '非常感谢,么么哒！', 'success')">
-						<img src="images/vote2.png" alt="">
-					</div>
-				</div>
+				</c:forEach>
 				<!--2-->
 				<div class="swiper-slide"  style="background-image:url('images/v1.png')">
 					<div class="renwu">
@@ -95,7 +90,7 @@
 			<source src="mv/1.mp4" type="video/mp4"></source>
 			</video>
 		</div>
-		<div class="paihang"><span>实时排行榜</span><span>奖品</span></div>
+		<div class="paihang"><span>选择班级</span></div>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/layer.js"></script>
 		<script type="text/javascript" src="js/swiper-3.4.0.jquery.min.js"></script>
