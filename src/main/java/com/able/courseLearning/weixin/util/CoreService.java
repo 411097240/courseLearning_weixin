@@ -112,14 +112,7 @@ public class CoreService {
 					// TODO 处理上报地理位置事件
 					System.out.println("openId:"+FromUserName);
 					System.out.println("上报地理位置事件  经度："+ Longitude+"   纬度："+Latitude);
-					//保存经度
-					//SessionList.setSeesion(FromUserName);
-					//SessionList.setSeesion("Longitude", Longitude,FromUserName);
-					//SessionList.getSession("Longitude", FromUserName);
-					//保存纬度
-					//SessionList.setSeesion(FromUserName);
-					//SessionList.setSeesion("Latitude", Latitude,FromUserName);
-					//SessionList.getSession("Latitude", FromUserName);
+					//redis保存用户的位置信息
 							
 				}
 				// 自定义菜单消息处理

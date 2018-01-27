@@ -46,7 +46,9 @@
 							<span class="num-xuhao">${item.className}</span>
 						</div>
 						<div class="detail" data-source="mv/1.mp4">
+						<a href="toSginDetail">
 							<img src="images/detail1.png" alt="">
+						</a>
 						</div>
 						<div class="toupiao" onClick="swal('投票成功!', '非常感谢,么么哒！', 'success')">
 							<img src="images/vote2.png" alt="">
@@ -157,6 +159,7 @@
 				});  
 			});  
 	   </script>
+		<!--
 	   <script type="text/javascript">
 			jQuery (function ($)
 			{
@@ -172,6 +175,7 @@
 			
 			});
 	   </script>
+	   -->
 
 	</body>
 

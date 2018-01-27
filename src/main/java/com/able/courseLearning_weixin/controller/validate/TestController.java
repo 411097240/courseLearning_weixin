@@ -1,5 +1,7 @@
 package com.able.courseLearning_weixin.controller.validate;
 
+import com.able.courseLearning.weixin.redis.common.RedisForUserLocation;
+import com.able.courseLearning.weixin.redis.common.RedisUtil;
 import com.able.courseLearning_weixin.common.pojo.AllUser;
 import com.able.courseLearning_weixin.dao.common.IClassDao;
 import com.able.courseLearning_weixin.dao.common.IClassUnionStudentDao;
@@ -32,12 +34,19 @@ public class TestController {
     @RequestMapping("test")
     @ResponseBody
     public Object test(Integer classId){
-        return classUnionStudentDao.findStudentStatus(1,"123456");
+        //return classUnionStudentDao.findStudentStatus(1,"123456");
         //Jedis jedis = jedisPool.getResource();
         //根据键值获得数据
-        //String result = jedis.get("key2");
+       // String result = jedis.get("key1");
        // jedis.close();
-        //return result;
+       // return result;
+        String key = RedisUtil.userLocation + "123";
+        Jedis jedis = jedisPool.getResource();
+        //根据键值获得数据
+        String result = jedis.set(key,"123"+","+"123");
+        System.out.print("保存key结果："+result);
+        jedis.close();
+        return result;
     }
 
     @ResponseBody

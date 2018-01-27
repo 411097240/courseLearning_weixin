@@ -47,8 +47,15 @@ public class StudentSginController {
             System.out.print("openId:"+openId);
         }
         List<ClassModel> classModelList = classDao.findClassByOpenId(openId);
-        ModelAndView mav = new ModelAndView("h5/vip");
+        ModelAndView mav = new ModelAndView("h5/classList");
         mav.addObject("classModelList",classModelList);
+        return mav;
+    }
+
+    @RequestMapping(value = "toSginDetail",method = RequestMethod.GET)
+    public ModelAndView sginDetail(HttpServletRequest request, HttpServletResponse response){
+        System.out.print("hello");
+        ModelAndView mav = new ModelAndView("h5/sginDetail");
         return mav;
     }
 }
