@@ -4,9 +4,11 @@ import com.able.courseLearning.weixin.pojo.WeixinOauth2Token;
 import com.able.courseLearning.weixin.util.AdvancedUtil;
 import com.able.courseLearning_weixin.common.pojo.ClassModel;
 import com.able.courseLearning_weixin.dao.common.IClassDao;
+import com.able.courseLearning_weixin.redis.common.RedisForUserLocation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -19,6 +21,8 @@ import java.util.List;
 public class StudentSginController {
     @Resource
     private IClassDao classDao;
+    @Resource
+    RedisForUserLocation redisForUserLocation;
     @RequestMapping(value = "toStudentSgin",method = RequestMethod.GET)
     public ModelAndView toStudentSgin(HttpServletRequest request, HttpServletResponse response){
         String openId = null;
@@ -49,6 +53,7 @@ public class StudentSginController {
         List<ClassModel> classModelList = classDao.findClassByOpenId(openId);
         ModelAndView mav = new ModelAndView("h5/classList");
         mav.addObject("classModelList",classModelList);
+        mav.addObject("openId",openId);
         return mav;
     }
 
@@ -58,4 +63,17 @@ public class StudentSginController {
         ModelAndView mav = new ModelAndView("h5/sginDetail");
         return mav;
     }
+    //保存用户位置
+    @RequestMapping("saveStudentLocation")
+    @ResponseBody
+    public void saveStudentLocation(String openId,String Longitude,String Latitude){
+        redisForUserLocation.saveUserLocation(openId,Longitude,Latitude);
+    }
+
+    @RequestMapping("startSgin")
+    @ResponseBody
+    public void startSgin(String openId,Integer classId){
+
+    }
+
 }

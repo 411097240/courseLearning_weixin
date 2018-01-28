@@ -3,12 +3,29 @@ package com.able.courseLearning.weixin.util;
 import com.able.courseLearning.weixin.message.resp.TextMessage;
 import com.able.courseLearning.weixin.message.resp.Article;
 import com.able.courseLearning.weixin.message.resp.NewsMessage;
+import com.able.courseLearning_weixin.redis.common.RedisForUserLocation;
+import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import redis.clients.jedis.JedisPool;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,6 +34,9 @@ import javax.servlet.http.HttpServletResponse;
  * 描述: 核心服务类 </br>
  */
 public class CoreService {
+	//记录用户位置信息请求地址
+	private  static final String requestUrl = "http://weixin.411097240qqcom.yxnat.softdev.top/courseLearning_weixin/saveStudentLocation";
+	private static Logger log = LoggerFactory.getLogger(CoreService.class);
 	/**
 	 * 处理微信发来的请求
 	 * @param request
@@ -112,7 +132,8 @@ public class CoreService {
 					// TODO 处理上报地理位置事件
 					System.out.println("openId:"+FromUserName);
 					System.out.println("上报地理位置事件  经度："+ Longitude+"   纬度："+Latitude);
-					//redis保存用户的位置信息
+					//发送请求保存用户经纬度
+					httpURLConectionGET(requestUrl+"?openId="+FromUserName+"&Longitude="+Longitude+"&Latitude="+Latitude);
 							
 				}
 				// 自定义菜单消息处理
@@ -182,5 +203,29 @@ public class CoreService {
 			e.printStackTrace();
 		}
 		return respXml;
+	}
+
+	/**
+	 * 接口调用 GET
+	 */
+	public static void httpURLConectionGET(String GET_URL) {
+		try {
+			URL url = new URL(GET_URL);    // 把字符串转换为URL请求地址
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();// 打开连接
+			connection.connect();// 连接会话
+			// 获取输入流
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+			String line;
+			StringBuilder sb = new StringBuilder();
+			while ((line = br.readLine()) != null) {// 循环读取流
+				sb.append(line);
+			}
+			br.close();// 关闭流
+			connection.disconnect();// 断开连接
+			System.out.println(sb.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("失败!");
+		}
 	}
 }

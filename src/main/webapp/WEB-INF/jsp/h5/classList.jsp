@@ -50,7 +50,7 @@
 							<img src="images/detail1.png" alt="">
 						</a>
 						</div>
-						<div class="toupiao" onClick="swal('投票成功!', '非常感谢,么么哒！', 'success')">
+						<div class="toupiao" >
 							<img src="images/vote2.png" alt="">
 						</div>
 					</div>
@@ -78,7 +78,7 @@
 					<!--<div class="toupiao" onClick="swal('投票成功!', '非常感谢,么么哒！', 'success')">
 						<img src="images/vote1.png" alt="">
 					</div>-->
-					<div class="toupiao" onClick="swal('您已经投票!', '非常感谢,么么哒！', 'success')">
+					<div  onClick="swal('您已经投票!', '非常感谢,么么哒！', 'success')">
 						<img src="images/yitou.png" alt="">
 					</div>
 				</div>
@@ -159,23 +159,29 @@
 				});  
 			});  
 	   </script>
-		<!--
+
 	   <script type="text/javascript">
-			jQuery (function ($)
-			{
-				var video = $("#video-js"); 
-				$ ('.detail').click (function ()
-				{
-					var videoSource = $(this).data('source'); 
-					video.attr('src',videoSource);
-					video.get(0).play();
-				});
-				
-			
-			
-			});
+		$('.toupiao').click(function () {
+		    var classid = $('#classId').val();
+		    var openid = $('#openId').val();
+		    $.ajax({
+				type:"post",
+				url:"startSgin",
+				dataType:"json",
+				data:{classId:classid,openId:openid},
+				success:function(data){
+				    if(data.status == "success"){
+
+					}
+				},
+				error:function(){
+				    alert("服务器异常啦！");
+				}
+			})
+            swal('您已经投票!', '非常感谢,么么哒！', 'success');
+        });
 	   </script>
-	   -->
+
 
 	</body>
 

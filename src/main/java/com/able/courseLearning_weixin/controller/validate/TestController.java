@@ -28,6 +28,8 @@ public class TestController {
     IClassDao classDao;
     @Resource
     IClassUnionStudentDao classUnionStudentDao;
+    @Resource
+    RedisForUserLocation redisForUserLocation;
     @Autowired
     private JedisPool jedisPool;//注入JedisPool
     @RequestMapping("test")
@@ -39,7 +41,7 @@ public class TestController {
        // String result = jedis.get("key1");
        // jedis.close();
       //  return result;
-        RedisForUserLocation redisForUserLocation = new RedisForUserLocation();
+
         redisForUserLocation.saveUserLocation("1","1","1");
         return 1;
     }

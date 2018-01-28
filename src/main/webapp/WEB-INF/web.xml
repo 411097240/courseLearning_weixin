@@ -5,12 +5,12 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:*.xml</param-value>
   </context-param>
-  
+  <!--
   <error-page>   
         <error-code>500</error-code>   
         <location>/index.jsp</location>
     </error-page>   
-    
+    -->
   <filter>
     <filter-name>encodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
