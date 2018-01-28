@@ -1,12 +1,13 @@
-package com.able.courseLearning.weixin.redis.common;
+package com.able.courseLearning_weixin.redis.common;
 
-import com.able.courseLearning.weixin.redis.common.RedisUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import javax.annotation.Resource;
+@Controller
 public class RedisForUserLocation {
-    @Autowired
+    @Resource
     private JedisPool jedisPool;//注入JedisPool
     //保存用户地理位置
     public void saveUserLocation(String openId,String longitude,String latitude){

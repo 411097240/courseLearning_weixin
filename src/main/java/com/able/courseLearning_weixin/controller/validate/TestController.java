@@ -1,11 +1,10 @@
 package com.able.courseLearning_weixin.controller.validate;
 
-import com.able.courseLearning.weixin.redis.common.RedisForUserLocation;
-import com.able.courseLearning.weixin.redis.common.RedisUtil;
 import com.able.courseLearning_weixin.common.pojo.AllUser;
 import com.able.courseLearning_weixin.dao.common.IClassDao;
 import com.able.courseLearning_weixin.dao.common.IClassUnionStudentDao;
 import com.able.courseLearning_weixin.dao.validate.IUserRegisterDao;
+import com.able.courseLearning_weixin.redis.common.RedisForUserLocation;
 import com.able.courseLearning_weixin.service.validate.IUserRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,18 +34,14 @@ public class TestController {
     @ResponseBody
     public Object test(Integer classId){
         //return classUnionStudentDao.findStudentStatus(1,"123456");
-        //Jedis jedis = jedisPool.getResource();
+       // Jedis jedis = jedisPool.getResource();
         //根据键值获得数据
        // String result = jedis.get("key1");
        // jedis.close();
-       // return result;
-        String key = RedisUtil.userLocation + "123";
-        Jedis jedis = jedisPool.getResource();
-        //根据键值获得数据
-        String result = jedis.set(key,"123"+","+"123");
-        System.out.print("保存key结果："+result);
-        jedis.close();
-        return result;
+      //  return result;
+        RedisForUserLocation redisForUserLocation = new RedisForUserLocation();
+        redisForUserLocation.saveUserLocation("1","1","1");
+        return 1;
     }
 
     @ResponseBody
