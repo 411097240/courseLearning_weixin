@@ -23,14 +23,15 @@
 	<body>
 
 		<div class="header">
-
+			<input type="hidden" id="openId" value="${openId}">
+			<input type="hidden" id="headImgUrl" value="${snsUserInfo.headImgUrl}">
 		</div>
 
 		<!--战队1-->
 		<div class="swiper-container" id="page1">
 			<div class="swiper-wrapper" id="list">
 				<!--1-->
-				<c:forEach items="${classModelList}" var="item">
+				<c:forEach items="${classModelList}" var="item" varStatus="status">
 					<div class="swiper-slide"  style="background-image:url('images/v1.png')">
 
 						<div class="renwu">
@@ -50,7 +51,7 @@
 							<img src="images/detail1.png" alt="">
 						</a>
 						</div>
-						<div class="toupiao" >
+						<div class="toupiao" onclick="saveStudentLocation('位置',${item.id})">
 							<img src="images/vote2.png" alt="">
 						</div>
 					</div>
@@ -161,25 +162,44 @@
 	   </script>
 
 	   <script type="text/javascript">
-		$('.toupiao').click(function () {
-		    var classid = $('#classId').val();
-		    var openid = $('#openId').val();
-		    $.ajax({
-				type:"post",
-				url:"startSgin",
-				dataType:"json",
-				data:{classId:classid,openId:openid},
-				success:function(data){
-				    if(data.status == "success"){
+//		$('.toupiao').click(function () {
+//		    var classid = $('#classId').val();
+//		    var openid = $('#openId').val();
+//		    $.ajax({
+//				type:"post",
+//				url:"startSgin",
+//				dataType:"json",
+//				data:{classId:classid,openId:openid},
+//				success:function(data){
+//				    if(data.status == "success"){
+//
+//					}
+//				},
+//				error:function(){
+//				    alert("服务器异常啦！");
+//				}
+//			})
+//            swal('您已经投票!', '非常感谢,么么哒！', 'success');
+//        });
 
-					}
-				},
-				error:function(){
-				    alert("服务器异常啦！");
-				}
-			})
-            swal('您已经投票!', '非常感谢,么么哒！', 'success');
-        });
+		function saveStudentLocation(location,classId){
+		    var openId = $('#openId').val();
+		    var headImgUrl = $('#headImgUrl').val();
+                $.ajax({
+                    type:"post",
+                    url:"startSgin",
+                    dataType:"json",
+                    data:{location:location,classId:classId,openId:openId,headImgUrl:headImgUrl},
+                    success:function(data){
+                        if(data.status == '1'){
+                            swal('签到成功!', '非常感谢,么么哒！', 'success');
+                        }
+                    },
+                    error:function(){
+                        alert("服务器异常啦！");
+                    }
+                })
+		}
 	   </script>
 
 

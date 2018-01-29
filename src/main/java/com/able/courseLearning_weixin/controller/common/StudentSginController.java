@@ -1,9 +1,11 @@
 package com.able.courseLearning_weixin.controller.common;
 
+import com.able.courseLearning.weixin.pojo.SNSUserInfo;
 import com.able.courseLearning.weixin.pojo.WeixinOauth2Token;
 import com.able.courseLearning.weixin.util.AdvancedUtil;
 import com.able.courseLearning_weixin.common.pojo.ClassModel;
 import com.able.courseLearning_weixin.dao.common.IClassDao;
+import com.able.courseLearning_weixin.dao.common.IStudentSginDao;
 import com.able.courseLearning_weixin.redis.common.RedisForUserLocation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,17 +17,22 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class StudentSginController {
     @Resource
     private IClassDao classDao;
     @Resource
+    IStudentSginDao studentSginDao;
+    @Resource
     RedisForUserLocation redisForUserLocation;
     @RequestMapping(value = "toStudentSgin",method = RequestMethod.GET)
     public ModelAndView toStudentSgin(HttpServletRequest request, HttpServletResponse response){
         String openId = null;
+        SNSUserInfo snsUserInfo = null;
         //得到openId
         try {
             request.setCharacterEncoding("utf-8");
@@ -49,11 +56,13 @@ public class StudentSginController {
             String accessToken = weixinOauth2Token.getAccessToken();
             openId = weixinOauth2Token.getOpenId();
             System.out.print("openId:"+openId);
+            snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
         }
         List<ClassModel> classModelList = classDao.findClassByOpenId(openId);
         ModelAndView mav = new ModelAndView("h5/classList");
         mav.addObject("classModelList",classModelList);
         mav.addObject("openId",openId);
+        mav.addObject("snsUserInfo",snsUserInfo);
         return mav;
     }
 
@@ -72,8 +81,17 @@ public class StudentSginController {
 
     @RequestMapping("startSgin")
     @ResponseBody
-    public void startSgin(String openId,Integer classId){
-
+    public Object startSgin(String location,Integer classId,String openId,String headImgUrl){
+        System.out.println(location);
+        System.out.println(classId);
+        System.out.println(openId);
+        System.out.println(headImgUrl);
+        Map<String,String> map = new HashMap<String,String>();
+        Integer row = studentSginDao.insertStudentSgin(headImgUrl,openId,location,classId);
+        if(row > 0){
+            map.put("status","1");
+        }
+        return map;
     }
 
 }
