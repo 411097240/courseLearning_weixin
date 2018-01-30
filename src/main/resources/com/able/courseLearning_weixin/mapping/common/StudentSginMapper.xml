@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.able.courseLearning_weixin.dao.common.IStudentSginDao" >
+    <resultMap id="BaseResultMap" type="com.able.courseLearning_weixin.common.dto.StudentSginDto" >
+        <result column="className" property="className"  />
+        <result column="realName" property="realName"  />
+        <result column="schoolCode" property="schoolCode"  />
+        <result column="createTime" property="createTime"  />
+        <result column="longitude" property="longitude"  />
+        <result column="latitude" property="latitude"  />
+    </resultMap>
 
   
  
@@ -8,10 +16,46 @@
 
   <insert id="insertStudentSgin"  >
    
-      insert into tbl_student_sgin (headImgUrl, openId,location,classId,createTime)
-    values ( #{0},#{1},#{2},#{3} ,NOW()
+      insert into tbl_student_sgin (headImgUrl, openId,longitude,latitude,classId,createTime)
+    values ( #{0},#{1},#{2},#{3},#{4} ,NOW()
       )
   </insert>
+
+    <select id="findSginMessageByDay" resultMap="BaseResultMap"  >
+       SELECT
+	*
+FROM
+	(
+		SELECT
+			*
+		FROM
+			tbl_student_sgin
+		WHERE
+			isDelete = 0
+		AND classId = #{0}
+		AND createTime BETWEEN  #{1}
+		AND  #{2}
+	) AS a
+LEFT JOIN (
+	SELECT
+		className,
+		id
+	FROM
+		tbl_class
+	WHERE
+		isDelete = 0
+) AS b ON a.classId = b.id
+LEFT JOIN (
+	SELECT
+		openId,
+		realName,
+		schoolCode
+	FROM
+		tbl_user
+	WHERE
+		isDelete = 0
+) AS c ON a.openId = c.openId
+    </select>
 
 
   

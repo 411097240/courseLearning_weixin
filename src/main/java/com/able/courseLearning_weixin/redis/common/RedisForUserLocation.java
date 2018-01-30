@@ -22,4 +22,12 @@ public class RedisForUserLocation {
         jedis.close();
 
     }
+    //得到缓存中用户的位置信息
+    public String findUserLocation(String openId){
+        String key = RedisUtil.userLocation + openId;
+        Jedis jedis = jedisPool.getResource();
+        String result = jedis.get(key);
+        jedis.close();
+        return result;
+    }
 }

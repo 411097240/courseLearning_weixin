@@ -3,7 +3,9 @@ package com.able.courseLearning_weixin.controller.common;
 import com.able.courseLearning.weixin.pojo.SNSUserInfo;
 import com.able.courseLearning.weixin.pojo.WeixinOauth2Token;
 import com.able.courseLearning.weixin.util.AdvancedUtil;
+import com.able.courseLearning_weixin.common.dto.StudentSginDto;
 import com.able.courseLearning_weixin.common.pojo.ClassModel;
+import com.able.courseLearning_weixin.common.util.DateUtil;
 import com.able.courseLearning_weixin.dao.common.IClassDao;
 import com.able.courseLearning_weixin.dao.common.IStudentSginDao;
 import com.able.courseLearning_weixin.redis.common.RedisForUserLocation;
@@ -17,9 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class StudentSginController {
@@ -66,10 +66,28 @@ public class StudentSginController {
         return mav;
     }
 
-    @RequestMapping(value = "toSginDetail",method = RequestMethod.GET)
-    public ModelAndView sginDetail(HttpServletRequest request, HttpServletResponse response){
-        System.out.print("hello");
+    @RequestMapping(value = "toSginDetail")
+    public ModelAndView sginDetail(String classId){
+        String className =null;
+        List<StudentSginDto> StudentSginDtoList = new ArrayList<StudentSginDto>();
+        List<StudentSginDto> StudentSginDto = studentSginDao.findSginMessageByDay("2","2018-01-30 00:00:00","2018-01-30 23:59:59");
         ModelAndView mav = new ModelAndView("h5/sginDetail");
+        if(StudentSginDto!=null&&StudentSginDto.size()>0){
+            className = StudentSginDto.get(0).getClassName();
+            for(int i = 0;i<StudentSginDto.size();i++){
+                StudentSginDto studentSginDto = new StudentSginDto();
+                studentSginDto.setRealName(StudentSginDto.get(i).getRealName());
+                studentSginDto.setHeadImgUrl(StudentSginDto.get(i).getHeadImgUrl());
+                Date time = StudentSginDto.get(i).getCreateTime();
+                String sginTime = DateUtil.tranDate(time,"HH:mm:ss");
+                studentSginDto.setSginTime(sginTime);
+                studentSginDto.setSchoolCode(StudentSginDto.get(i).getSchoolCode());
+                studentSginDto.setLongitude(StudentSginDto.get(i).getLongitude());
+                studentSginDto.setLatitude(StudentSginDto.get(i).getLatitude());
+                StudentSginDtoList.add(studentSginDto);
+            }
+        }
+        mav.addObject("StudentSginDtoList",StudentSginDtoList);
         return mav;
     }
     //保存用户位置
@@ -81,13 +99,24 @@ public class StudentSginController {
 
     @RequestMapping("startSgin")
     @ResponseBody
-    public Object startSgin(String location,Integer classId,String openId,String headImgUrl){
-        System.out.println(location);
+    public Object startSgin(Integer classId,String openId,String headImgUrl){
         System.out.println(classId);
         System.out.println(openId);
         System.out.println(headImgUrl);
+        String longitude = null;
+        String latitude = null;
         Map<String,String> map = new HashMap<String,String>();
-        Integer row = studentSginDao.insertStudentSgin(headImgUrl,openId,location,classId);
+        String location = redisForUserLocation.findUserLocation(openId);
+        //如果位置信息为空，签到失败
+        if("".equals(location)||null == location){
+           map.put("status","2");
+           return map;
+        }else{
+            String[] myLocation = location.split(",");
+            longitude = myLocation[0];
+            latitude = myLocation[1];
+        }
+        Integer row = studentSginDao.insertStudentSgin(headImgUrl,openId,longitude,latitude,classId);
         if(row > 0){
             map.put("status","1");
         }

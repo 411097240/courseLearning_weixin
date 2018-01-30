@@ -92,6 +92,13 @@
       <h3 class="sectionTitle testimonialsTitle">《数据结构》课堂签到</h3>
 
       <!-- testimonial wrapper starts -->
+      <c:forEach items="${StudentSginDtoList}" var="item" varStatus="status">
+        <div class="testimonialWrapper"> <a href="#" class="testimonialImageWrapper"><img class="testimonialImage" src="${item.headImgUrl}" alt=""/></a>
+
+          <p class="testimonialText">学号：${item.schoolCode}<br>&nbsp;&nbsp;&nbsp;&nbsp;姓名：${item.realName}<br>&nbsp;&nbsp;&nbsp;&nbsp;签到时间：${item.sginTime}<span class="testimonialAuthor">- ${item.longitude},${item.latitude}</span></p>
+
+        </div>
+      </c:forEach>
 
       <div class="testimonialWrapper"> <a href="#" class="testimonialImageWrapper"><img class="testimonialImage" src="images/testimonial-1.jpg" alt=""/></a>
 

@@ -8,7 +8,8 @@ public class StudentSgin implements Serializable {
     private String headImgUrl;//签到人头像
     private Integer classId;//班级id
     private String openId;
-    private String location;//签到位置
+    private String longitude;//经度
+    private String latitude;//纬度
     private Date createTime;
     private Date updateTime;
     private Integer isDelete;
@@ -45,12 +46,20 @@ public class StudentSgin implements Serializable {
         this.openId = openId;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
     public Date getCreateTime() {
