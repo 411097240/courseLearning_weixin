@@ -60,6 +60,7 @@
 <!-- JavaScript files end -->
 
 </head>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=g4NVpNfxHjb9eSn0pDNxQbImBCExZzEm"></script>
 
 <body>
 
@@ -89,42 +90,19 @@
 
     <div class="testimonialsWrapper">
 
-      <h3 class="sectionTitle testimonialsTitle">《数据结构》课堂签到</h3>
+      <h3 class="sectionTitle testimonialsTitle">《${className}》课堂签到</h3>
 
       <!-- testimonial wrapper starts -->
       <c:forEach items="${StudentSginDtoList}" var="item" varStatus="status">
         <div class="testimonialWrapper"> <a href="#" class="testimonialImageWrapper"><img class="testimonialImage" src="${item.headImgUrl}" alt=""/></a>
 
-          <p class="testimonialText">学号：${item.schoolCode}<br>&nbsp;&nbsp;&nbsp;&nbsp;姓名：${item.realName}<br>&nbsp;&nbsp;&nbsp;&nbsp;签到时间：${item.sginTime}<span class="testimonialAuthor">- ${item.longitude},${item.latitude}</span></p>
+          <p class="testimonialText">学号：${item.schoolCode}<br>&nbsp;&nbsp;&nbsp;&nbsp;姓名：${item.realName}<br>&nbsp;&nbsp;&nbsp;&nbsp;签到时间：${item.sginTime}<span class="testimonialAuthor" id = "myLocation${status.index}"></span></p>
+<script>
 
+</script>
         </div>
       </c:forEach>
 
-      <div class="testimonialWrapper"> <a href="#" class="testimonialImageWrapper"><img class="testimonialImage" src="images/testimonial-1.jpg" alt=""/></a>
-
-        <p class="testimonialText">学号：201421092074<br>&nbsp;&nbsp;&nbsp;&nbsp;姓名：梁响<br>&nbsp;&nbsp;&nbsp;&nbsp;签到时间：09:10<span class="testimonialAuthor">- 湖北省武汉市洪山区南湖大道政院路1号</span></p>
-
-      </div>
-
-      <!-- testimonial wrapper ends --> 
-
-      <!-- testimonial wrapper starts -->
-
-      <div class="testimonialWrapper"> <a href="#" class="testimonialImageWrapper"><img class="testimonialImage" src="images/testimonial-2.jpg" alt=""/></a>
-
-        <p class="testimonialText">学号：201421092074<br>&nbsp;&nbsp;&nbsp;&nbsp;姓名：梁响<br>&nbsp;&nbsp;&nbsp;&nbsp;签到时间：09:10<span class="testimonialAuthor">- 湖北省武汉市洪山区南湖大道政院路1号</span></p>
-
-      </div>
-
-      <!-- testimonial wrapper ends --> 
-
-      <!-- testimonial wrapper starts -->
-
-      <div class="testimonialWrapper"> <a href="#" class="testimonialImageWrapper"><img class="testimonialImage" src="images/testimonial-3.jpg" alt=""/></a>
-
-        <p class="testimonialText">学号：201421092074<br>&nbsp;&nbsp;&nbsp;&nbsp;姓名：梁响<br>&nbsp;&nbsp;&nbsp;&nbsp;签到时间：09:10<span class="testimonialAuthor">- 湖北省武汉市洪山区南湖大道政院路1号</span></p>
-
-      </div>
 
       <!-- testimonial wrapper ends --> 
 
@@ -173,7 +151,49 @@
 
 <!-- website wrapper ends -->
 
-</body>
-
 </html>
+<script type="text/javascript">
+    var index = 0;
+    var myGeo = new BMap.Geocoder();
+    var Longitude = ${Longitude};
+    var Latitude = ${Latitude};
+    var points = new Array();
+    var adds = new Array();
+    console.log(Longitude);
+    for(var i = 0 ; i < Longitude.length; i++){
+        points.push(new BMap.Point(Longitude[i],Latitude[i]));
+        console.log("转换前经度"+Longitude[i]);
+    }
+    //坐标转换完之后的回调函数
+    translateCallback = function (data){
+        if(data.status === 0) {
+            for (var i = 0; i < data.points.length; i++) {
+                adds.push(new BMap.Point(data.points[i].lng,data.points[i].lat));
+                console.log("转换后经度"+data.points[i].lng);
+            }
+            bdGEO();
+        }
+    }
+    setTimeout(function(){
+        var convertor = new BMap.Convertor();
+        convertor.translate(points, 1, 5, translateCallback)
+    }, 1000);
 
+    function bdGEO(){
+        var pt = adds[index];
+        geocodeSearch(pt);
+        index++;
+    }
+    function geocodeSearch(pt){
+        if(index < adds.length-1){
+            setTimeout(window.bdGEO,400);
+        }
+        myGeo.getLocation(pt, function(rs){
+            var addComp = rs.addressComponents;
+            $("#myLocation"+(index-1)).html("-"+addComp.province + addComp.city +addComp.district+addComp.street+addComp.streetNumber);
+            console.log( index + ". " +adds[index-1].lng + "," + adds[index-1].lat + "："  + "商圈(" + rs.business + ")  结构化数据(" + addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+        });
+    }
+
+
+</script>

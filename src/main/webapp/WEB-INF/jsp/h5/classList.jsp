@@ -56,33 +56,6 @@
 						</div>
 					</div>
 				</c:forEach>
-				<!--2-->
-				<div class="swiper-slide"  style="background-image:url('images/v1.png')">
-					<div class="renwu">
-						<img src="images/ren2.jpg" alt="">
-					</div>
-					<div class="num">
-						<span class="num-name">选号：</span>
-						<span class="num-xuhao">001</span>
-					</div>
-					<div class="num">
-						<span class="num-name">选号：</span>
-						<span class="num-xuhao">001</span>
-					</div>
-					<div class="title">
-						<span class="titlt-l">球队：</span>
-						<span class="titlt-r">球队名称球队名称</span>
-					</div>
-					<div class="detail" data-source="mv/1.mp4">
-						<img src="images/detail1.png" alt="">
-					</div>
-					<!--<div class="toupiao" onClick="swal('投票成功!', '非常感谢,么么哒！', 'success')">
-						<img src="images/vote1.png" alt="">
-					</div>-->
-					<div  onClick="swal('您已经投票!', '非常感谢,么么哒！', 'success')">
-						<img src="images/yitou.png" alt="">
-					</div>
-				</div>
 				
 			</div>
 			<div class="middle" id="swiper-pagination1"></div>

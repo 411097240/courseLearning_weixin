@@ -69,6 +69,8 @@ public class StudentSginController {
     @RequestMapping(value = "toSginDetail")
     public ModelAndView sginDetail(String classId){
         String className =null;
+        List<String> Longitude = new ArrayList<String>();
+        List<String> Latitude = new ArrayList<String>();
         List<StudentSginDto> StudentSginDtoList = new ArrayList<StudentSginDto>();
         List<StudentSginDto> StudentSginDto = studentSginDao.findSginMessageByDay("2","2018-01-30 00:00:00","2018-01-30 23:59:59");
         ModelAndView mav = new ModelAndView("h5/sginDetail");
@@ -84,10 +86,15 @@ public class StudentSginController {
                 studentSginDto.setSchoolCode(StudentSginDto.get(i).getSchoolCode());
                 studentSginDto.setLongitude(StudentSginDto.get(i).getLongitude());
                 studentSginDto.setLatitude(StudentSginDto.get(i).getLatitude());
+                Longitude.add(StudentSginDto.get(i).getLongitude());
+                Latitude.add(StudentSginDto.get(i).getLatitude());
                 StudentSginDtoList.add(studentSginDto);
             }
         }
         mav.addObject("StudentSginDtoList",StudentSginDtoList);
+        mav.addObject("className",className);
+        mav.addObject("Longitude",Longitude);
+        mav.addObject("Latitude",Latitude);
         return mav;
     }
     //保存用户位置
