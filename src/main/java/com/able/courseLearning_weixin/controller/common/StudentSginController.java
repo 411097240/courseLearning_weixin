@@ -9,6 +9,7 @@ import com.able.courseLearning_weixin.common.util.DateUtil;
 import com.able.courseLearning_weixin.dao.common.IClassDao;
 import com.able.courseLearning_weixin.dao.common.IStudentSginDao;
 import com.able.courseLearning_weixin.redis.common.RedisForUserLocation;
+import com.able.courseLearning_weixin.service.common.IStudentSginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,8 @@ public class StudentSginController {
     private IClassDao classDao;
     @Resource
     IStudentSginDao studentSginDao;
+    @Resource
+    private IStudentSginService studentSginService;
     @Resource
     RedisForUserLocation redisForUserLocation;
     @RequestMapping(value = "toStudentSgin",method = RequestMethod.GET)
@@ -72,7 +75,7 @@ public class StudentSginController {
         List<String> Longitude = new ArrayList<String>();
         List<String> Latitude = new ArrayList<String>();
         List<StudentSginDto> StudentSginDtoList = new ArrayList<StudentSginDto>();
-        List<StudentSginDto> StudentSginDto = studentSginDao.findSginMessageByDay("2","2018-01-30 00:00:00","2018-01-30 23:59:59");
+        List<StudentSginDto> StudentSginDto = studentSginService.findSginMessageByDay(classId);
         ModelAndView mav = new ModelAndView("h5/sginDetail");
         if(StudentSginDto!=null&&StudentSginDto.size()>0){
             className = StudentSginDto.get(0).getClassName();

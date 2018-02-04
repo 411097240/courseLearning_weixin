@@ -90,7 +90,15 @@
 
     <div class="testimonialsWrapper">
 
-      <h3 class="sectionTitle testimonialsTitle">《${className}》课堂签到</h3>
+      <h3 class="sectionTitle testimonialsTitle">
+          <c:choose>
+          <c:when test="${StudentSginDtoList.size() == 0}">
+              还没有签到记录!<!--如果 -->
+          </c:when>
+          <c:otherwise><!--否则 -->
+              《${className}》课堂签到
+          </c:otherwise>
+      </c:choose></h3>
 
       <!-- testimonial wrapper starts -->
       <c:forEach items="${StudentSginDtoList}" var="item" varStatus="status">

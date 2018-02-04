@@ -47,7 +47,7 @@
 							<span class="num-xuhao">${item.className}</span>
 						</div>
 						<div class="detail" data-source="mv/1.mp4">
-						<a href="toSginDetail">
+						<a href="toSginDetail?classId=${item.id}">
 							<img src="images/detail1.png" alt="">
 						</a>
 						</div>
@@ -135,25 +135,6 @@
 	   </script>
 
 	   <script type="text/javascript">
-//		$('.toupiao').click(function () {
-//		    var classid = $('#classId').val();
-//		    var openid = $('#openId').val();
-//		    $.ajax({
-//				type:"post",
-//				url:"startSgin",
-//				dataType:"json",
-//				data:{classId:classid,openId:openid},
-//				success:function(data){
-//				    if(data.status == "success"){
-//
-//					}
-//				},
-//				error:function(){
-//				    alert("服务器异常啦！");
-//				}
-//			})
-//            swal('您已经投票!', '非常感谢,么么哒！', 'success');
-//        });
 
 		function saveStudentLocation(location,classId){
 		    var openId = $('#openId').val();
