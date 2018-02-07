@@ -23,38 +23,33 @@ public class UserLoginController {
 	
 	//用户登录
 	@RequestMapping("/userlogin")
-	public ModelAndView userLogin(HttpServletRequest requset,HttpServletResponse rsponse,String userName,String passWord){
+	public ModelAndView userLogin(HttpServletRequest request,HttpServletResponse rsponse,String userName,String passWord){
 		String IuserName = org.springframework.web.util.HtmlUtils.htmlEscape(userName);
 		ModelAndView mav = null;
 		//passWord加密
-		String pwd = MD5Utils.getPwd(passWord);
+		String pwd = "";
+		if(passWord!=null&&!("".equals(passWord))){
+			pwd = MD5Utils.getPwd(passWord);
+		}
 		if(loginservice.isCheck(IuserName,pwd)){
 			//判断用户权限
 			int grade = loginservice.selectGradeByName(IuserName);
 			if(grade==1){
-				requset.getSession().setAttribute("userName", IuserName);
-				mav = new ModelAndView("student/index");
+				request.getSession().setAttribute("userName", IuserName);
+				mav = new ModelAndView("admin/index");
 				return mav;
 			}
-			    mav = new ModelAndView("teacher/teacherIndex");
-			    requset.getSession().setAttribute("userName", IuserName);
+			    mav = new ModelAndView("admin/index");
+			    request.getSession().setAttribute("userName", IuserName);
 				return mav;
 		}
 		
-		 mav = new ModelAndView("h5/index");
+		 mav = new ModelAndView("index");
 		 mav.addObject("msg","用户名或密码错误");
 		 return mav;
 	}
 	
-	@RequestMapping("/register")
-	public String toRegister(){
-		return "register";
-	}
-	
-	@RequestMapping("/index")	
-	public String toIndex(){
-		return "h5/index";
-	}
+
 	
 	
 	
