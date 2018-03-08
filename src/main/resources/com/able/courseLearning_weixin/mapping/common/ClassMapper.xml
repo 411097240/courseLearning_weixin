@@ -36,6 +36,10 @@
             AND isChecked = 1
         )
     </select>
+
+    <select id="findClassIdByteacherName" resultType="java.lang.Integer">
+        SELECT id FROM tbl_class WHERE isDelete = 0 AND teacherName = #{0}
+    </select>
   
  
  

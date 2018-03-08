@@ -28,7 +28,7 @@
             <ul class="layui-nav layui-layout-left layui-ygyd-menu" style="position:absolute; left:250px;">
       <li class="layui-nav-item"><a href="">班级信息统计</a></li>
       <li class="layui-nav-item">
-        <a href="javascript:;">班级管理</a>
+        <a href="">班级管理</a>
         <dl class="layui-nav-child">
           <dd><a href="">入班申请</a></dd>
           <dd><a href="">学生签到</a></dd>
@@ -152,8 +152,8 @@
     </ul>
     <div class="layui-tab-content site-demo site-demo-body">
       <div class="layui-tab-item layui-show">
-        <iframe frameborder="0" src="" class="x-iframe">
-          123456
+        <iframe frameborder="0" src="toWelcome" class="x-iframe">
+
         </iframe>
       </div>
     </div>

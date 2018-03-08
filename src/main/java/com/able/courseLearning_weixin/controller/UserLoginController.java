@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.able.courseLearning_weixin.dao.common.IClassDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,6 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.able.courseLearning_weixin.helper.MD5Utils;
 import com.able.courseLearning_weixin.pojo.User;
 import com.able.courseLearning_weixin.service.IUserLoginService;
+
+import java.util.List;
+
 /**
  * @author: lx
  * @Description: 登陆，注册 控制层 
@@ -20,27 +24,35 @@ import com.able.courseLearning_weixin.service.IUserLoginService;
 public class UserLoginController {
 	@Resource
 	private IUserLoginService loginservice;
+	@Resource
+	private IClassDao classDao;
 	
 	//用户登录
 	@RequestMapping("/userlogin")
 	public ModelAndView userLogin(HttpServletRequest request,HttpServletResponse rsponse,String userName,String passWord){
-		String IuserName = org.springframework.web.util.HtmlUtils.htmlEscape(userName);
+		//String IuserName = org.springframework.web.util.HtmlUtils.htmlEscape(userName);
 		ModelAndView mav = null;
 		//passWord加密
 		String pwd = "";
 		if(passWord!=null&&!("".equals(passWord))){
 			pwd = MD5Utils.getPwd(passWord);
 		}
-		if(loginservice.isCheck(IuserName,pwd)){
+		if(loginservice.isCheck(userName,pwd)){
 			//判断用户权限
-			int grade = loginservice.selectGradeByName(IuserName);
+			int grade = loginservice.selectGradeByName(userName);
+			//超级管理
 			if(grade==1){
-				request.getSession().setAttribute("userName", IuserName);
+				request.getSession().setAttribute("userName", userName);
+				Integer classId = classDao.findClassIdByteacherName(userName);
+				System.out.println("====classId====="+classId);
 				mav = new ModelAndView("admin/index");
 				return mav;
 			}
+			//老师
 			    mav = new ModelAndView("admin/index");
-			    request.getSession().setAttribute("userName", IuserName);
+			Integer classId = classDao.findClassIdByteacherName(userName);
+			System.out.println("====classId====="+classId);
+			    request.getSession().setAttribute("userName", userName);
 				return mav;
 		}
 		
@@ -93,6 +105,13 @@ public class UserLoginController {
 			return mav;
 		}
 		
+	}
+
+	//welcome.jsp页面数据
+	@RequestMapping("/toWelcome")
+	public ModelAndView toWelcome(){
+		ModelAndView mav = new ModelAndView("admin/welcome");
+		return mav;
 	}
 
 }
