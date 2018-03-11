@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.able.courseLearning_weixin.dao.common.IClassDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.able.courseLearning_weixin.helper.MD5Utils;
@@ -108,10 +109,20 @@ public class UserLoginController {
 	}
 
 	//welcome.jsp页面数据
-	@RequestMapping("/toWelcome")
+	@RequestMapping("admin/toWelcome")
 	public ModelAndView toWelcome(){
 		ModelAndView mav = new ModelAndView("admin/welcome");
 		return mav;
 	}
+
+	//退出登录
+	@RequestMapping("/loginOut")
+	public ModelAndView loginOut(String userName,HttpServletRequest request){
+		request.getSession().invalidate();
+		System.out.println(request.getSession().getAttribute(userName));
+		ModelAndView mav = new ModelAndView("redirect:userlogin");
+		return mav;
+	}
+
 
 }

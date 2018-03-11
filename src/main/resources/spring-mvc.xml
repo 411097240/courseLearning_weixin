@@ -19,6 +19,21 @@
 			</list>
 		</property>
 	</bean>
+<!--拦截器，没有session返回登录页面-->
+	<!-- 静态资源解析包括 ：js、css、img、 -->
+	<mvc:resources mapping="/js/**" location="/js/"/>
+	<mvc:resources mapping="/css/**" location="/css/"/>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/*"/> <!-- 拦截路径 -->
+			<mvc:exclude-mapping path="/userlogin"/>  <!-- 排除的拦截路径 -->
+			<mvc:exclude-mapping path="admin/js/**" />
+			<mvc:exclude-mapping path="admin/css/**" />
+			<mvc:exclude-mapping path="admin/image/**" />
+			<bean class="com.able.courseLearning_weixin.common.util.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
 
 	<!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
 	<bean

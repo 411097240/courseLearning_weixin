@@ -43,12 +43,12 @@
                         </a>
                         </li> -->
         <li class="layui-nav-item"><img src="./images/logo.png" class="layui-circle" style="border: 2px solid #A9B7B7;" width="35px" alt=""></li>
-        <li class="layui-nav-item"> <a href="javascript:;">admin</a>
+        <li class="layui-nav-item"> <a href="javascript:;"> ${sessionScope.userName}</a>
           <dl class="layui-nav-child">
             <!-- 二级菜单 -->
             <dd><a href="">个人信息</a></dd>
             <dd><a href="">切换帐号</a></dd>
-            <dd><a href="./login.html">退出</a></dd>
+            <dd><a href="loginOut?userName=${sessionScope.userName}">退出</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item x-index"><a href="/">前台首页</a></li>
@@ -152,7 +152,7 @@
     </ul>
     <div class="layui-tab-content site-demo site-demo-body">
       <div class="layui-tab-item layui-show">
-        <iframe frameborder="0" src="toWelcome" class="x-iframe">
+        <iframe frameborder="0" src="admin/toWelcome" class="x-iframe">
 
         </iframe>
       </div>

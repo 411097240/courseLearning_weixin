@@ -4,6 +4,7 @@ import com.able.courseLearning.weixin.pojo.AccessToken;
 import com.able.courseLearning_weixin.common.pojo.AllUser;
 import com.able.courseLearning_weixin.dao.common.IClassDao;
 import com.able.courseLearning_weixin.dao.common.IClassUnionStudentDao;
+import com.able.courseLearning_weixin.dao.common.ISuperAdminDao;
 import com.able.courseLearning_weixin.dao.validate.IUserRegisterDao;
 import com.able.courseLearning_weixin.redis.common.RedisForUserLocation;
 import com.able.courseLearning_weixin.service.validate.IUserRegisterService;
@@ -36,6 +37,8 @@ public class TestController {
     IUserRegisterService userRegisterService;
     @Resource
     IClassDao classDao;
+    @Resource
+    ISuperAdminDao superAdminDao;
     @Resource
     IClassUnionStudentDao classUnionStudentDao;
     @Resource
@@ -95,5 +98,13 @@ public class TestController {
 
         JSONObject jsonObject = httpRequest(url, "GET", null);
         return jsonObject;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "testLX",method = RequestMethod.GET)
+    public Object testLX(){
+
+        return superAdminDao.addClass("梁响","大学物理");
+
     }
 }
