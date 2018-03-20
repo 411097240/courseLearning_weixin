@@ -42,7 +42,7 @@
                             <i class="layui-icon" style="top: 1px;">&#xe63a;</i>
                         </a>
                         </li> -->
-        <li class="layui-nav-item"><img src="./images/logo.png" class="layui-circle" style="border: 2px solid #A9B7B7;" width="35px" alt=""></li>
+        <li class="layui-nav-item"><img src="images/logo.png" class="layui-circle" style="border: 2px solid #A9B7B7;" width="35px" alt=""></li>
         <li class="layui-nav-item"> <a href="javascript:;"> ${sessionScope.userName}</a>
           <dl class="layui-nav-child">
             <!-- 二级菜单 -->
@@ -152,7 +152,7 @@
     </ul>
     <div class="layui-tab-content site-demo site-demo-body">
       <div class="layui-tab-item layui-show">
-        <iframe frameborder="0" src="admin/toWelcome" class="x-iframe">
+        <iframe frameborder="0" src="toWelcome" class="x-iframe">
 
         </iframe>
       </div>

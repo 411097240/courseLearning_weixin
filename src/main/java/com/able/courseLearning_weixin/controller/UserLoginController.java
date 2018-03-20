@@ -109,7 +109,7 @@ public class UserLoginController {
 	}
 
 	//welcome.jsp页面数据
-	@RequestMapping("admin/toWelcome")
+	@RequestMapping("/toWelcome")
 	public ModelAndView toWelcome(){
 		ModelAndView mav = new ModelAndView("admin/welcome");
 		return mav;

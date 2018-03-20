@@ -14,9 +14,9 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
-        <link rel="stylesheet" href="./css/x-admin.css" media="all">
-        <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.css" media="all">
-        <link rel="stylesheet" href="./lib/bootstrap/js/bootstrap.min.js" media="all">
+        <link rel="stylesheet" href="css/x-admin.css" media="all">
+        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" media="all">
+        <link rel="stylesheet" href="lib/bootstrap/js/bootstrap.min.js" media="all">
     </head>
     <body>
     <style type="text/css">
@@ -126,10 +126,9 @@
         </div>
         </div>
     
-        <script src="./lib/layui/layui.js" charset="utf-8"></script>
-        <script src="./js/index.js"></script>
-        <script src="./js/echarts.min.js"></script>
-        <script src="./js/echart.js"></script>
+        <script src="lib/layui/layui.js" charset="utf-8"></script>
+
+        <script src="js/echarts.min.js"></script>
         <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
