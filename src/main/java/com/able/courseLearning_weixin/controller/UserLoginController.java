@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.able.courseLearning_weixin.common.pojo.ClassModel;
 import com.able.courseLearning_weixin.dao.common.IClassDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,9 @@ import com.able.courseLearning_weixin.helper.MD5Utils;
 import com.able.courseLearning_weixin.pojo.User;
 import com.able.courseLearning_weixin.service.IUserLoginService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: lx
@@ -31,30 +34,30 @@ public class UserLoginController {
 	//用户登录
 	@RequestMapping("/userlogin")
 	public ModelAndView userLogin(HttpServletRequest request,HttpServletResponse rsponse,String userName,String passWord){
-		//String IuserName = org.springframework.web.util.HtmlUtils.htmlEscape(userName);
-		ModelAndView mav = null;
+		ModelAndView mav = new ModelAndView();
 		//passWord加密
 		String pwd = "";
+		Integer classId = 0;
 		if(passWord!=null&&!("".equals(passWord))){
 			pwd = MD5Utils.getPwd(passWord);
 		}
 		if(loginservice.isCheck(userName,pwd)){
 			//判断用户权限
 			int grade = loginservice.selectGradeByName(userName);
+			request.getSession().setAttribute("userName", userName);
+			classId = classDao.findClassIdByteacherName(userName);
+			ClassModel classMessage = classDao.findClassMessageByClassId(classId);
+			mav.addObject("classId",classId);
+			mav.addObject("clsssMessage",classMessage);
 			//超级管理
-			if(grade==1){
-				request.getSession().setAttribute("userName", userName);
-				Integer classId = classDao.findClassIdByteacherName(userName);
-				System.out.println("====classId====="+classId);
-				mav = new ModelAndView("admin/index");
+			if(grade==2){
+				mav.setViewName("admin/index");
+				return mav;
+			}else {
+                //老师
+				mav.setViewName("admin/index");
 				return mav;
 			}
-			//老师
-			    mav = new ModelAndView("admin/index");
-			Integer classId = classDao.findClassIdByteacherName(userName);
-			System.out.println("====classId====="+classId);
-			    request.getSession().setAttribute("userName", userName);
-				return mav;
 		}
 		
 		 mav = new ModelAndView("index");
@@ -122,6 +125,19 @@ public class UserLoginController {
 		System.out.println(request.getSession().getAttribute(userName));
 		ModelAndView mav = new ModelAndView("redirect:userlogin");
 		return mav;
+	}
+
+	//异步得到入班人数和待审核人数
+	@ResponseBody
+	@RequestMapping("/findStudentCountByclassId")
+	public Object findStudentCountByclassId(Integer classId){
+		Map<String,Object> map = new HashMap<String,Object>();
+		//得到通过审核的人数
+		Integer checkedCount = classDao.findStudentCountByclassId(classId,1);
+		Integer notCheckedCount = classDao.findStudentCountByclassId(classId,0);
+		map.put("checkedCount",checkedCount);
+		map.put("notCheckCount",notCheckedCount);
+		return map;
 	}
 
 

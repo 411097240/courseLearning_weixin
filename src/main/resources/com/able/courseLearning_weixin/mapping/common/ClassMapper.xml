@@ -11,6 +11,14 @@
         <result column="isDelete" property="isDelete"  />
     </resultMap>
 
+    <resultMap id="JoinClassApplyDto" type="com.able.courseLearning_weixin.common.dto.JoinClassApplyDto" >
+        <result column="openId" property="openId" />
+        <result column="realName" property="userName" />
+        <result column="schoolCode" property="schoolCode"  />
+        <result column="createTime" property="applyTime"  />
+        <result column="classId" property="classId"  />
+    </resultMap>
+
     <select id="findAllClass" resultMap="BaseResultMap"  >
         select
         *
@@ -19,8 +27,8 @@
     </select>
 
     <select id="findClassByOpenId" resultMap="BaseResultMap">
-             SELECT
-            *
+        SELECT
+         *
         FROM
         tbl_class
         WHERE
@@ -40,7 +48,34 @@
     <select id="findClassIdByteacherName" resultType="java.lang.Integer">
         SELECT id FROM tbl_class WHERE isDelete = 0 AND teacherName = #{0}
     </select>
-  
+
+    <select id="findStudentCountByclassId" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM tbl_class_user WHERE isDelete = 0 AND classId = #{0} AND isChecked = #{1}
+    </select>
+   <select id="findClassMessageByClassId" resultMap="BaseResultMap">
+       select
+        *
+        from tbl_class
+        where isDelete = 0
+        and id = #{0}
+   </select>
+
+    <select id="findApplyMessage" resultMap="JoinClassApplyDto">
+    SELECT
+        a.classId,
+        a.createTime,
+        b.realName,
+        b.schoolCode,
+        a.openId
+    FROM
+        tbl_class_user a
+    LEFT JOIN tbl_user b ON a.openId = b.openId
+    WHERE
+        a.isDelete = 0
+    AND b.isDelete = 0
+    AND a.classId = #{0}
+    AND a.isChecked = #{1}
+    </select>
  
  
  

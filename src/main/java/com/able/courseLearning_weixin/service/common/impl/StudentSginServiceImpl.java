@@ -22,4 +22,9 @@ public class StudentSginServiceImpl implements IStudentSginService {
         System.out.println("-------------------endTime:"+endTime);
         return studentSginDao.findSginMessageByDay(classId,startTime,endTime);
     }
+
+    @Override
+    public Integer insertStudentSgin(String headImgUrl, String openId, String longitude, String latitude, Integer classId) {
+        return studentSginDao.insertStudentSgin(headImgUrl,openId,longitude,latitude,classId);
+    }
 }

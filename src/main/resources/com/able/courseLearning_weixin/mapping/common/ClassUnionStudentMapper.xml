@@ -25,9 +25,10 @@
     </insert>
   <update id="updateStudentStatus">
       UPDATE tbl_class_user up
-			SET up.isChecked = 1
+			SET up.isChecked = 1 , up.updateTime = NOW()
 		WHERE
 			up.openId = #{0}
+			AND classId = #{1}
 			AND up.isDelete = 0
   </update>
     <select id="findStudentStatus" resultMap="BaseResultMap"  >

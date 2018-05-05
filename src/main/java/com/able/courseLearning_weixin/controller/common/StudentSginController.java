@@ -29,7 +29,7 @@ public class StudentSginController {
     @Resource
     IStudentSginDao studentSginDao;
     @Resource
-    private IStudentSginService studentSginService;
+    IStudentSginService studentSginService;
     @Resource
     RedisForUserLocation redisForUserLocation;
     @RequestMapping(value = "toStudentSgin",method = RequestMethod.GET)
@@ -126,11 +126,16 @@ public class StudentSginController {
             longitude = myLocation[0];
             latitude = myLocation[1];
         }
-        Integer row = studentSginDao.insertStudentSgin(headImgUrl,openId,longitude,latitude,classId);
+        Integer row = studentSginService.insertStudentSgin(headImgUrl,openId,longitude,latitude,classId);
         if(row > 0){
             map.put("status","1");
         }
         return map;
     }
-
+    @RequestMapping("studentSgin")
+    public ModelAndView studentSgin(Integer classId){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("admin/studentSgin");
+        return mav;
+    }
 }
