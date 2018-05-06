@@ -38,7 +38,7 @@ $('.larry-side-menu').click(function() {
 
     	res = element.tabAdd('x-tab', {
 	        title: title//用于演示
-	        ,content: '<iframe frameborder="0" src="'+url+'" class="x-iframe"></iframe>'
+	        ,content: '<iframe frameborder="0" src="'+url+'" class="x-iframe" scrolling="auto" id="ifrma1"></iframe>'
 		    });
 
 

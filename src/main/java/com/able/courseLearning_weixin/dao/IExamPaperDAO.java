@@ -3,6 +3,7 @@ package com.able.courseLearning_weixin.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.able.courseLearning_weixin.common.dto.JoinClassApplyDto;
 import org.apache.ibatis.annotations.Param;
 
 import com.able.courseLearning_weixin.pojo.ChoiceQuestion;
@@ -33,9 +34,9 @@ public interface IExamPaperDAO {
 	//批量更新选择题表
 	int questionInsert(@Param("questionList")List<ChoiceQuestion> choiceQuestions);
 	//在试卷表添加一张试卷信息
-	int insertPaper(String teacherName,String title,int id);
+	int insertPaper(String teacherName,String title,int id,Integer classId);
 	//在用户表中找所有权限为1的用户
 	List<User> findAllStudent();
 	//批量更新user_paper表
-	int insertUserPaper(@Param("users")List<User> users,int paperId);
+	int insertUserPaper(@Param("users")List<JoinClassApplyDto> users, int paperId);
 }

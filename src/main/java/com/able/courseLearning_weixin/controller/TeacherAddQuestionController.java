@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,16 +24,16 @@ public class TeacherAddQuestionController {
 	private IFindPaperService findpaper;
 @RequestMapping(value="/addQuestion",method=RequestMethod.POST)
 @ResponseBody
-public Map<String, String> addQuestion(@RequestBody List<ChoiceQuestion> choiceQuestion,String teacherName,String title){
-	String Ititle = org.springframework.web.util.HtmlUtils.htmlEscape(title);
-	String IteacherName = org.springframework.web.util.HtmlUtils.htmlEscape(teacherName);
+public Map<String, String> addQuestion(HttpServletRequest request,@RequestBody List<ChoiceQuestion> choiceQuestion, String title){
 	Map<String, String> map = new HashMap<>();
 	//System.out.print(choiceQuestion.size());
-	if("".equals(teacherName)||"".equals(title)||choiceQuestion.size()==0){
+	if("".equals(title)||choiceQuestion.size()==0){
 		map.put("message","请完整填写数据!");
 		return map;
 	}
-	if(findpaper.addQuestion(choiceQuestion,IteacherName,Ititle)){
+	HttpSession session  = request.getSession();
+	String teacherName = (String) session.getAttribute("userName");
+	if(findpaper.addQuestion(choiceQuestion,teacherName,title)){
 		map.put("message","提交成功!");
 		return map;
 	}
@@ -42,6 +44,6 @@ public Map<String, String> addQuestion(@RequestBody List<ChoiceQuestion> choiceQ
 
 @RequestMapping("/toAddQuestion")
 public String toAddQuestion(){
-	return "teacher/addQuestion";
+	return "admin/addQuestion";
 }
 }

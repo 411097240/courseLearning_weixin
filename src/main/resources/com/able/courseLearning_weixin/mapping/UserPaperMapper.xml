@@ -45,7 +45,7 @@ WHERE
        (userName,paperId,state)  
         values  
        <foreach collection="users" item="item" index="index" separator=",">  
-        ( #{item.userName},#{1},0)  
+        ( #{item.openId},#{1},0)
        </foreach>  
   </insert>
  

@@ -157,9 +157,9 @@ WHERE
  
  <!--  在试卷表添加一张试卷信息-->
  	<insert id="insertPaper">  
-       INSERT INTO exam_paper (title, teacherName, id)
+       INSERT INTO exam_paper (title, teacherName, id,classId,createTime)
         VALUES
-	   (#{1}, #{0},#{2})
+	   (#{1}, #{0},#{2},#{3},NOW())
       
   </insert>
 </mapper>

@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.able.courseLearning_weixin.common.dto.JoinClassApplyDto;
+import com.able.courseLearning_weixin.dao.common.IClassDao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,8 @@ import com.alibaba.fastjson.JSONArray;
 public class FindPaperServiceImpl implements IFindPaperService{
 	@Resource
 	private IExamPaperDAO findpaper;
+	@Resource
+	private IClassDao classDao;
 	@Override
 	//通过用户名和state找试卷信息
 	public JSONArray findPaper(String userName,int state) {
@@ -110,11 +114,13 @@ public class FindPaperServiceImpl implements IFindPaperService{
 		for(int i=0;i<choiceQuestion.size();i++){
 		choiceQuestion.get(i).setCqPaperId(maxPaperId);
 		}
+		Integer classId = classDao.findClassIdByteacherName(teacherName);
 		//在试卷表添加一张试卷信息
-		int count = findpaper.insertPaper(teacherName,title,maxPaperId);
-		//新增用户试卷关联表user_paper数据,先找到所有学生用户再批量更新
-		List<User> users = findpaper.findAllStudent();
-		int num = findpaper.insertUserPaper(users, maxPaperId);
+		int count = findpaper.insertPaper(teacherName,title,maxPaperId,classId);
+		//新增用户试卷关联表user_paper数据,先找到学生用户再批量更新
+		//找到所有通过申请的学生
+		List<JoinClassApplyDto> joinClassApplyDtoList = classDao.findApplyMessage(classId,1);
+		int num = findpaper.insertUserPaper(joinClassApplyDtoList, maxPaperId);
 		if(findpaper.questionInsert(choiceQuestion)>0&&count>0&&num>0)
 		return true;
 		return false;

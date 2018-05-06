@@ -6,7 +6,7 @@
 }
 
 .my-header{
-    background: #3d444c;
+    background: #c2c2c2;
     position: fixed;
     width: 100%;
     height:54px;
@@ -72,8 +72,8 @@ a {
   .black{
   	font-size: 20px;
     font-family: 宋体;
-    color: #eee;
-    background: #3d444c;
+    color: #232c31;
+    background: #c2c2c2;
     position: fixed;
     margin-bottom: 30px;
   }

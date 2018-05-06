@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<link rel="stylesheet" href="css/x-admin.css" media="all">
+<link rel="stylesheet" href="css/x-admin.css?version=2" media="all">
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
@@ -69,6 +69,13 @@
             <dd class=""> <a href="javascript:;" _href="studentSgin"> <cite>签到管理</cite> </a> </dd>
           </dl>
         </li>
+        <li class="layui-nav-item"> <a class="javascript:;" href="javascript:;"> <i class="layui-icon" style="top: 3px;">&#xe642;</i><cite>创建练习</cite> </a>
+          <dl class="layui-nav-child">
+            <dd class="">
+            <dd class=""> <a href="javascript:;" _href="toAddQuestion"> <cite>编辑练习题</cite> </a> </dd>
+            </dd>
+          </dl>
+        </li>
         <li class="layui-nav-item" style="height: 30px; text-align: center"> </li>
       </ul>
     </div>
@@ -79,13 +86,13 @@
     </ul>
     <div class="layui-tab-content site-demo site-demo-body">
       <div class="layui-tab-item layui-show">
-        <iframe frameborder="0" src="toWelcome" class="x-iframe"></iframe>
+        <iframe frameborder="0" src="toWelcome" class="x-iframe" scrolling="yes"></iframe>
       </div>
     </div>
   </div>
   <div class="site-mobile-shade"> </div>
 </div>
 <script src="lib/layui/layui.js" charset="utf-8"></script>
-<script src="js/x-admin.js"></script>
+<script src="js/x-admin.js?version=1"></script>
 </body>
 </html>
