@@ -13,7 +13,7 @@
 <script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	jsonarray = $('#jsonarray').val();
+    jsonarray = $('#jsonarray').val();
 	jsonObj = eval("("+jsonarray+")");
 	//console.log(jsonObj.length);
 	 function console(jsonObj){
@@ -24,7 +24,7 @@ $(function(){
 	              +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;试卷名:'+jsonObj[i].examPaper[0].title
 	              +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出题老师:'+jsonObj[i].examPaper[0].teacherName
 	              if(jsonObj[i].state==0){
-	                html[index] = html[index] + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=beginTest?paperId='+jsonObj[i].examPaper[0].id+'>开始考试</a>:';
+	                html[index] = html[index] + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=beginTest?openId=${openId}&paperId='+jsonObj[i].examPaper[0].id+'>开始考试</a>:';
 	              }else if(jsonObj[i].score==-1){
 	                html[index] = html[index] + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考试成绩:等待老师批阅';
 	              }else{
@@ -44,9 +44,9 @@ $(function(){
     <div class="my-container">
         <div class="my-header">
         <center>
-           <div class="subject-title black">你好${sessionScope.userName}，这里是学生端！
-           	<a href="getPaper?userName=${sessionScope.userName}&state=0">未完成考试</a>
-            <a href="getPaper?userName=${sessionScope.userName}&state=1">历史考试分数</a>
+           <div class="subject-title black">你好，这里是学生端！
+           	<a href="getPaper?openId=${openId}&state=0">未完成练习</a>
+            <a href="getPaper?openId=${openId}&state=1">历史测试分数</a>
            </div>  
            </center>         
         </div>
@@ -55,14 +55,14 @@ $(function(){
            
             </div>
             <div class="subject-title">
-                   	我的考试信息
+                   	我的练习题信息
             </div>
             <div class="subject-title  message">
-                  
+
              </div>
           
         </div>
     </div>
 </body>
- <input value=${jsonarray} type="hidden" id="jsonarray"> 
+ <input type="hidden" id="jsonarray" value='${jsonarray}' />
 </html>

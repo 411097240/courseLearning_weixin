@@ -34,8 +34,8 @@
            <div class="subject-title black">
            <center>
            	你好${sessionScope.userName}，这里是教师端！
-           	<a href="findPaperNotCorrecting?score=-1">待批改的试卷</a>
-            <a href="toAddQuestion">新建考试试卷</a>
+               <a href="findPaperNotCorrecting?classId=${classId}">待批改的练习题</a>
+               <a href="toAddQuestion">新建练习题</a>
             </center>
            </div>           
         </div>
@@ -62,9 +62,9 @@
  $(function(){
 	 $('#submitForm').click(function(){
 		 totalScore = $('.Score').val()
-		 userName = jsonObj[0].questionAnswer[0].qaUserName;
+         openId = jsonObj[0].questionAnswer[0].openId;
 		 paperId = jsonObj[0].id;  
-		 window.location = 'submitScore?userName='+userName+'&paperId='+paperId+'&totalScore='+totalScore+'';
+		 window.location = 'submitScore?openId='+openId+'&paperId='+paperId+'&totalScore='+totalScore+'';
 	 });
  });
  

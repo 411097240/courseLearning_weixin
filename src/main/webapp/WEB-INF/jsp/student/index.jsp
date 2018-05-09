@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>无标题文档</title>
+<title>我的课后练习题</title>
 </head>
 <script src="js/jquery/2.0.0/jquery.min.js"></script>
 <link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
@@ -16,9 +16,9 @@
         <div class="my-header">
            <div class="subject-title black">
            <center>
-           	你好${sessionScope.userName}，这里是学生端！
-           	<a href="getPaper?userName=${sessionScope.userName}&state=0">未完成考试</a>
-            <a href="getPaper?userName=${sessionScope.userName}&state=1">历史考试分数</a>
+           	你好，这里是学生端！
+           	<a href="getPaper?openId=${openId}&state=0">未完成练习</a>
+            <a href="getPaper?openId=${openId}&state=1">历史测试分数</a>
             </center>
            </div>           
         </div>

@@ -20,7 +20,6 @@
   <select id="findExamPaperByUser" resultMap="paper" parameterType="com.able.courseLearning_weixin.pojo.UserPaper">
   	SELECT
 	ep.id id,
-	up.userName userName,
 	up.state state,
 	ep.title title,
 	ep.teacherName teacherName,
@@ -31,7 +30,7 @@ FROM
 WHERE
 	ep.id = up.paperId
 	AND up.state = #{1}
-	AND up.userName = #{0}
+	AND up.openId = #{0}
   </select>
   
  
@@ -42,7 +41,7 @@ WHERE
   <!-- 批量更新user_paper表 -->
   <insert id="insertUserPaper">  
        insert into user_paper
-       (userName,paperId,state)  
+       (openId,paperId,state)
         values  
        <foreach collection="users" item="item" index="index" separator=",">  
         ( #{item.openId},#{1},0)

@@ -22,9 +22,9 @@
 		for(var i=0;i<jsonObj[0].userPaper.length;i++){
 			html='<div class="subject-title">试卷编号：'+jsonObj[0].userPaper[i].paperId
 			+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;试卷名称：'+jsonObj[0].examPaper[i].title
-			+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考试人：'+jsonObj[0].userPaper[i].userName
+			+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考试人：'+jsonObj[0].userPaper[i].openId
 			+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出题老师：'+jsonObj[0].examPaper[i].teacherName
-			+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="viewPaper?userName='+jsonObj[0].userPaper[i].userName
+			+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="viewPaper?openId='+jsonObj[0].userPaper[i].openId
 			+'&paperId='+jsonObj[0].userPaper[i].paperId+'">开始改卷</a>'
 			+'</div>'+html;
 		}
@@ -36,8 +36,8 @@
            <div class="subject-title black">
            <center>
            	你好${sessionScope.userName}，这里是教师端！
-           	<a href="findPaperNotCorrecting?score=-1">待批改的试卷</a>
-            <a href="toAddQuestion">新建考试试卷</a>
+               <a href="findPaperNotCorrecting?classId=${classId}">待批改的练习题</a>
+               <a href="toAddQuestion">新建练习题</a>
             </center>
            </div>           
         </div>

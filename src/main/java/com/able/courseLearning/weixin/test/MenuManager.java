@@ -63,9 +63,9 @@ public class MenuManager {
 //		btn21.setUrl("http://www.baidu.com");
 
 		ViewButton btn22 = new ViewButton();
-		btn22.setName("课堂直播");
+		btn22.setName("课后练习题");
 		btn22.setType("view");
-		btn22.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfc8eae6dd688043e&redirect_uri=http%3a%2f%2fweixin.411097240qqcom.yxnat.softdev.top%2fcourseLearning_weixin%2ftest&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+		btn22.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfc8eae6dd688043e&redirect_uri=http%3a%2f%2fweixin.411097240qqcom.yxnat.softdev.top%2fcourseLearning_weixin%2ftoStudentIndex&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
 
 		ViewButton btn23 = new ViewButton();
 		btn23.setName("课程论坛");

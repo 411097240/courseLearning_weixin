@@ -26,9 +26,9 @@ public class FindPaperServiceImpl implements IFindPaperService{
 	private IClassDao classDao;
 	@Override
 	//通过用户名和state找试卷信息
-	public JSONArray findPaper(String userName,int state) {
+	public JSONArray findPaper(String openId,int state) {
 		
-	    List<Map<String,String>> ls = findpaper.findExamPaperByUser(userName,state);
+	    List<Map<String,String>> ls = findpaper.findExamPaperByUser(openId,state);
 		String s = JSON.toJSONString(ls);
 		JSONArray jsonArray = JSONArray.parseArray(s);
 		System.out.println(jsonArray);		
@@ -49,7 +49,7 @@ public class FindPaperServiceImpl implements IFindPaperService{
 	//判断是否试卷提交成功
 	public boolean isSubmit(List<QuestionAnswer> answerlist) {
 		int count=findpaper.answerInsert(answerlist);
-		if(count>=0){
+		if(count > 0){
 			return true;
 		}
 		return false;
@@ -58,17 +58,17 @@ public class FindPaperServiceImpl implements IFindPaperService{
 
 	@Override
 	//判断试卷是否重复提交
-	public boolean cheakSubmit(String userName, int paperId) {
-		int count =findpaper.cheakSubmit(userName, paperId);
-		if(count>0){
+	public boolean cheakSubmit(String openId, int paperId) {
+		int count =findpaper.cheakSubmit(openId, paperId);
+		if(count > 0){
 			return true;
 		}
 		return false;
 	}
 	//老师端找未批改试卷列表
 	@Override
-	public JSONArray findPaperListNotCorrecting(int score) {
-		List<Map<String,String>> ls = findpaper.findPaperListNotCorrecting(score);
+	public JSONArray findPaperListNotCorrecting(int classId) {
+		List<Map<String,String>> ls = findpaper.findPaperListNotCorrecting(classId);
 		String s = JSON.toJSONString(ls);
 		JSONArray jsonArray = JSONArray.parseArray(s);
 		System.out.println(jsonArray);		
@@ -78,8 +78,8 @@ public class FindPaperServiceImpl implements IFindPaperService{
 	
 	//指定用户和试卷id的所有选择题答案信息
 	@Override
-	public JSONArray findSubmitPaperMessage(String userName, int paperId) {
-		List<Map<String,String>> ls = findpaper.findSubmitPaperMessage(userName, paperId);
+	public JSONArray findSubmitPaperMessage(String openId, int paperId) {
+		List<Map<String,String>> ls = findpaper.findSubmitPaperMessage(openId, paperId);
 		String s = JSON.toJSONString(ls);
 		JSONArray jsonArray = JSONArray.parseArray(s);
 		System.out.println(jsonArray);		
@@ -87,16 +87,16 @@ public class FindPaperServiceImpl implements IFindPaperService{
 	}
 	//提交试卷成绩
 	@Override
-	public boolean submitScore(String userName, int paperId, int totalScore) {
-		if(findpaper.submitScore(userName, paperId, totalScore)>0){
+	public boolean submitScore(String openId, int paperId, int totalScore) {
+		if(findpaper.submitScore(openId, paperId, totalScore)>0){
 			return true;
 		}
 		return false;
 	}
 	//学生提交试卷时将user_paper表的state更新为1,score更新为-1
 	@Override
-	public boolean updateUserPaper(String userName, int paperId) {
-		if(findpaper.updateUserPaper(userName, paperId)>0){
+	public boolean updateUserPaper(String openId, int paperId) {
+		if(findpaper.updateUserPaper(openId, paperId)>0){
 			return true;
 		}
 		return false;

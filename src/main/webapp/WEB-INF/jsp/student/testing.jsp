@@ -49,12 +49,12 @@
 			var totalMessage = new Array();
 			for(var i=0;i<totalRadio;i++){
 				totalMessage.push({qaAnswer:$('input:radio:checked')[i].value,qaPaperId:$('.paperId'+i+'').val(),
-					qaUserName:$('.userName'+i+'').val(),qaQuestionId:$('.questionId'+i+'').val(),
+					openId:'${openId}',qaQuestionId:$('.questionId'+i+'').val(),
 					qaQuestionType:$('.questionType'+i+'').val()});
 			}
 			console.log(totalMessage);
 			$.ajax({
-                url: "submitPaper",
+                url: "submitPaper?openId=${openId}",
                 type: "POST",
                 contentType : 'application/json;charset=utf-8', //设置请求头信息
                 dataType:"json",
@@ -75,9 +75,9 @@
         <div class="my-header">
            <div class="subject-title black">
            <center>
-           	你好${sessionScope.userName}，这里是学生端！
-           	<a href="getPaper?userName=${sessionScope.userName}&state=0">未完成考试</a>
-            <a href="getPaper?userName=${sessionScope.userName}&state=1">历史考试分数</a>
+           	你好，这里是学生端！
+               <a href="getPaper?openId=${openId}&state=0">未完成练习</a>
+               <a href="getPaper?openId=${openId}&state=1">历史测试分数</a>
             </center>
            </div>           
         </div>
@@ -103,6 +103,6 @@
                 -->    
         </div>
     </div>
-    <input type="hidden" id="jsonarray" value=${jsonarray}>
+    <input type="hidden" id="jsonarray" value='${jsonarray}'>
 </body>
 </html>

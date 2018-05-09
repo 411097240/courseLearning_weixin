@@ -2,7 +2,7 @@ package com.able.courseLearning_weixin.pojo;
 //问题答案表实体类
 public class QuestionAnswer {
 	private int  qaId;
-	private String qaUserName;
+	private String openId;
 	//试卷id
 	private int qaPaperId;
 	//问题type
@@ -17,12 +17,15 @@ public class QuestionAnswer {
 	public void setQaId(int qaId) {
 		this.qaId = qaId;
 	}
-	public String getQaUserName() {
-		return qaUserName;
+
+	public String getOpenId() {
+		return openId;
 	}
-	public void setQaUserName(String qaUserName) {
-		this.qaUserName = qaUserName;
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
 	}
+
 	public int getQaPaperId() {
 		return qaPaperId;
 	}

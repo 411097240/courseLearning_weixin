@@ -6,7 +6,7 @@ import java.util.List;
 public class UserPaper {
 	private Integer id;
 	//用户名
-	private String userName;
+	private String openId;
 	//试卷id
 	private Integer paperId;
 	//试卷分数
@@ -27,15 +27,15 @@ public class UserPaper {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
-	
-	public String getUserName() {
-		return userName;
+
+	public String getOpenId() {
+		return openId;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
 	}
+
 	public Integer getPaperId() {
 		return paperId;
 	}

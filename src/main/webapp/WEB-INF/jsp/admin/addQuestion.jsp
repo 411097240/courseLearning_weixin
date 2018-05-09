@@ -40,8 +40,8 @@
         <div class="subject-title black">
             <center>
                 你好${sessionScope.userName}，这里是教师端！
-                <a href="findPaperNotCorrecting?score=-1">待批改的试卷</a>
-                <a href="toAddQuestion">新建考试试卷</a>
+                <a href="findPaperNotCorrecting?classId=${classId}">待批改的测试</a>
+                <a href="toAddQuestion">新建练习题</a>
             </center>
         </div>
     </div>

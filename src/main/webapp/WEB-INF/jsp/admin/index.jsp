@@ -69,10 +69,10 @@
             <dd class=""> <a href="javascript:;" _href="studentSgin"> <cite>签到管理</cite> </a> </dd>
           </dl>
         </li>
-        <li class="layui-nav-item"> <a class="javascript:;" href="javascript:;"> <i class="layui-icon" style="top: 3px;">&#xe642;</i><cite>创建练习</cite> </a>
+        <li class="layui-nav-item"> <a class="javascript:;" href="javascript:;"> <i class="layui-icon" style="top: 3px;">&#xe642;</i><cite>课后练习题</cite> </a>
           <dl class="layui-nav-child">
             <dd class="">
-            <dd class=""> <a href="javascript:;" _href="toAddQuestion"> <cite>编辑练习题</cite> </a> </dd>
+            <dd class=""> <a href="javascript:;" _href="toAddQuestion"> <cite>创建批改练习题</cite> </a> </dd>
             </dd>
           </dl>
         </li>

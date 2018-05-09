@@ -8,7 +8,7 @@
     select 
     count(qaPaperId)
     from question_answer qa
-    where qa.qaUserName = #{0}
+    where qa.openId = #{0}
     and qa.qaPaperId = #{1}
   </select>
   

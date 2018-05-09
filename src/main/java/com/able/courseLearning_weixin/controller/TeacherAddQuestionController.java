@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.able.courseLearning_weixin.dao.common.IClassDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.able.courseLearning_weixin.pojo.ChoiceQuestion;
 import com.able.courseLearning_weixin.service.IFindPaperService;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class TeacherAddQuestionController {
 	
 	@Resource
 	private IFindPaperService findpaper;
+	@Resource
+	private IClassDao classDao;
 @RequestMapping(value="/addQuestion",method=RequestMethod.POST)
 @ResponseBody
 public Map<String, String> addQuestion(HttpServletRequest request,@RequestBody List<ChoiceQuestion> choiceQuestion, String title){
@@ -43,7 +47,12 @@ public Map<String, String> addQuestion(HttpServletRequest request,@RequestBody L
 }
 
 @RequestMapping("/toAddQuestion")
-public String toAddQuestion(){
-	return "admin/addQuestion";
+public ModelAndView toAddQuestion(HttpServletRequest request){
+	HttpSession session  = request.getSession();
+	String teacherName = (String) session.getAttribute("userName");
+	Integer classId = classDao.findClassIdByteacherName(teacherName);
+	ModelAndView mav = new ModelAndView("admin/addQuestion");
+	mav.addObject("classId",classId);
+	return mav;
 }
 }

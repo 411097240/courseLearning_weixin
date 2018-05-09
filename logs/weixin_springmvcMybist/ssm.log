@@ -217,3 +217,4 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 [INFO] [2018-01-24 18:04:46][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
 [INFO] [2018-01-26 20:31:23][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
 [INFO] [2018-01-26 20:34:28][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！
+[INFO] [2018-05-09 09:36:03][com.able.courseLearning.weixin.test.MenuManager]菜单创建成功！

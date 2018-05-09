@@ -47,7 +47,7 @@
     
     <collection property="userPaper" ofType="com.able.courseLearning_weixin.pojo.UserPaper">
     	<id column="id" property="id" jdbcType="INTEGER" />
-	     <result column="userName" property="userName" jdbcType="VARCHAR" />
+	     <result column="openId" property="openId" jdbcType="VARCHAR" />
 		 <result column="paperId" property="paperId" jdbcType="INTEGER" />
 		 <result column="state" property="state" jdbcType="INTEGER" />
 		 <result column="score" property="score" jdbcType="INTEGER" />
@@ -62,7 +62,7 @@
     
     <collection property="questionAnswer" ofType="com.able.courseLearning_weixin.pojo.QuestionAnswer">
     	<id column="qaId" property="qaId" jdbcType="INTEGER" />
-	     <result column="qaUserName" property="qaUserName" jdbcType="VARCHAR" />
+	     <result column="openId" property="openId" jdbcType="VARCHAR" />
 		 <result column="qaPaperId" property="qaPaperId" jdbcType="INTEGER" />
 		 <result column="qaQuestionType" property="qaQuestionType" jdbcType="INTEGER" />
 		 <result column="qaQuestionId" property="qaQuestionId" jdbcType="INTEGER" />
@@ -93,10 +93,10 @@
   </select>
  <!-- 批量插入答案 -->
   <insert id="answerInsert">  
-       insert into question_answer(qaUserName,qaPaperId,qaQuestionId,qaAnswer,qaQuestionType)  
+       insert into question_answer(openId,qaPaperId,qaQuestionId,qaAnswer,qaQuestionType)
      values  
        <foreach collection="list" item="item" index="index" separator=",">  
-        ( #{item.qaUserName},#{item.qaPaperId},#{item.qaQuestionId},#{item.qaAnswer},#{item.qaQuestionType} )  
+        ( #{item.openId},#{item.qaPaperId},#{item.qaQuestionId},#{item.qaAnswer},#{item.qaQuestionType} )
        </foreach>  
   </insert>
   
@@ -105,24 +105,24 @@
   		UPDATE user_paper up
 			SET up.score = #{2}
 		WHERE
-			up.userName = #{0}
+			up.openId = #{0}
 			AND up.paperId = #{1}; 
   </update>
   
   
   <!-- 未批改试卷列表 -->
   <select id="findPaperListNotCorrecting" resultMap="notCorrectingPaper">
-  	SELECT
-		ep.title title,
-		ep.teacherName teacherName,
-		up.paperId paperId,
-		up.userName userName
-	FROM
-		exam_paper ep,
-		user_paper up
-	WHERE
-		up.paperId = ep.id
-	    AND up.score = #{0};
+  SELECT
+	ep.title title,
+	ep.teacherName teacherName,
+	up.paperId paperId,
+	up.openId openId
+FROM
+	exam_paper ep
+LEFT JOIN user_paper up ON up.paperId = ep.id
+WHERE
+	ep.classId = #{0}
+AND up.score = - 1;
   </select>
   
   
@@ -132,7 +132,7 @@
 			SET up.score = -1,
 				up.state = 1
 		WHERE
-			up.userName = #{0}
+			up.openId = #{0}
 			AND up.paperId = #{1}; 
   </update>
   
@@ -147,7 +147,7 @@ FROM
 WHERE
 
 	(qa.qaQuestionId = cq.cqId and qa.qaQuestionType = cq.cqQuestionType)
-   AND qa.qaPaperId =#{1} AND qa.qaUserName=#{0} AND ep.id=qa.qaPaperId;
+   AND qa.qaPaperId =#{1} AND qa.openId=#{0} AND ep.id=qa.qaPaperId;
   </select>
   <!-- 找到试卷表中的最大paperId -->
   <select id="findMaxPaperId" resultType="com.able.courseLearning_weixin.pojo.ExamPaper">
