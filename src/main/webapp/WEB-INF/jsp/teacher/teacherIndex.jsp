@@ -22,7 +22,7 @@
 		for(var i=0;i<jsonObj[0].userPaper.length;i++){
 			html='<div class="subject-title">试卷编号：'+jsonObj[0].userPaper[i].paperId
 			+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;试卷名称：'+jsonObj[0].examPaper[i].title
-			+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考试人：'+jsonObj[0].userPaper[i].openId
+			+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考试人：'+jsonObj[0].userPaper[i].userName
 			+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出题老师：'+jsonObj[0].examPaper[i].teacherName
 			+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="viewPaper?openId='+jsonObj[0].userPaper[i].openId
 			+'&paperId='+jsonObj[0].userPaper[i].paperId+'">开始改卷</a>'

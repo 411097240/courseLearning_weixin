@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.able.courseLearning_weixin.dao.common.ICommentDao" >
+    <resultMap id="commentMap" type="com.able.courseLearning_weixin.common.dto.CommentDto" >
+        <id column="id" property="id"  />
+        <id column="title" property="title"  />
+        <id column="commentCreateTime" property="commentCreateTime"  />
+        <id column="createTime" property="createTime"  />
+        <id column="userName" property="userName"  />
+        <id column="comment" property="comment"  />
+        <id column="userImg" property="userImg"  />
+        <id column="teacherName" property="teacherName"  />
+    </resultMap>
+
+
+   <insert id="insertComment" >
+    insert into tbl_comment (classId, title,teacherName,createTime)
+    values ( #{0},#{1},#{2},NOW())
+   </insert>
+ <select id="findCommentlistByClassId" resultMap="commentMap">
+    SELECT
+    tc.id id,
+    tc.createTime commentCreateTime,
+    tc.title title,
+    tc.teacherName teacherName
+    FROM
+    tbl_comment tc
+    WHERE
+        tc.classId = #{0}
+    AND tc.isDelete = 0;
+ </select>
+
+    <select id="findCommentDetailList" resultMap="commentMap">
+        SELECT
+            tcu.comment comment,
+            tcu.createTime createTime,
+            tu.realName userName
+        FROM
+            tbl_comment_user tcu
+        LEFT JOIN tbl_user tu ON tu.openId = tcu.openId
+        WHERE
+            tcu.perentId = #{0}
+        AND tcu.isDelete = 0
+        AND tu.isDelete = 0
+    </select>
+
+    <insert id="studentInsertComment" >
+        insert into tbl_comment_user (comment, openId,perentId,createTime)
+        values ( #{0},#{1},#{2},NOW())
+    </insert>
+</mapper>

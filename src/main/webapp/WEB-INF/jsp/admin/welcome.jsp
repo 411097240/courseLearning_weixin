@@ -16,7 +16,6 @@ pageEncoding="utf-8"%>
         <meta name="format-detection" content="telephone=no">
         <link rel="stylesheet" href="./css/x-admin.css" media="all">
         <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.css" media="all">
-        <link rel="stylesheet" href="./lib/bootstrap/js/bootstrap.min.js" media="all">
     </head>
     <body>
     <style type="text/css">

@@ -48,6 +48,7 @@
     <collection property="userPaper" ofType="com.able.courseLearning_weixin.pojo.UserPaper">
     	<id column="id" property="id" jdbcType="INTEGER" />
 	     <result column="openId" property="openId" jdbcType="VARCHAR" />
+		<result column="userName" property="userName" jdbcType="VARCHAR" />
 		 <result column="paperId" property="paperId" jdbcType="INTEGER" />
 		 <result column="state" property="state" jdbcType="INTEGER" />
 		 <result column="score" property="score" jdbcType="INTEGER" />
@@ -116,10 +117,12 @@
 	ep.title title,
 	ep.teacherName teacherName,
 	up.paperId paperId,
-	up.openId openId
+	tu.openId openId,
+	tu.realName userName
 FROM
 	exam_paper ep
 LEFT JOIN user_paper up ON up.paperId = ep.id
+LEFT JOIN tbl_user tu ON up.openId = tu.openId
 WHERE
 	ep.classId = #{0}
 AND up.score = - 1;

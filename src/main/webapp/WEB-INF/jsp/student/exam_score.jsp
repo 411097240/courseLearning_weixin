@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>无标题文档</title>
+<title>我的课后练习题</title>
 </head>
 <script src="js/jquery/2.0.0/jquery.min.js"></script>
 <link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">

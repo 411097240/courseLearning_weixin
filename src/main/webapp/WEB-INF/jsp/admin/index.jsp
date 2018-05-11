@@ -58,8 +58,8 @@
       <ul class="layui-nav layui-nav-tree site-demo-nav" lay-filter="side">
         <li class="layui-nav-item"> <a class="javascript:;" href="javascript:;"> <i class="layui-icon" style="top: 3px;">&#xe606;</i><cite>评论管理</cite> </a>
           <dl class="layui-nav-child">
-            <dd class=""> <a href="javascript:;" _href="./comment-list.html"> <cite>评论列表</cite> </a> </dd>
-            <dd class=""> <a href="javascript:;" _href="./feedback-list.html"> <cite>意见反馈</cite> </a> </dd>
+           <!-- <dd class=""> <a href="javascript:;" _href="./comment-list.html"> <cite>讨论管理</cite> </a> </dd>-->
+            <dd class=""> <a href="javascript:;" _href="createComment"> <cite>创建讨论</cite> </a> </dd>
           </dl>
         </li>
         <li class="layui-nav-item"> <a class="javascript:;" href="javascript:;"> <i class="layui-icon" style="top: 3px;">&#xe612;</i><cite>班级管理</cite> </a>

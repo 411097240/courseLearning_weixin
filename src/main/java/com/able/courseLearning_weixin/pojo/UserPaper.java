@@ -4,6 +4,7 @@ import java.util.List;
 
 //用户试卷中间表实体类
 public class UserPaper {
+	private String userName;
 	private Integer id;
 	//用户名
 	private String openId;
@@ -13,7 +14,15 @@ public class UserPaper {
 	private Integer score;
 	//试卷状态
 	private Integer state;
-	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public List<ExamPaper> getExamPaper() {
 		return examPaper;
 	}

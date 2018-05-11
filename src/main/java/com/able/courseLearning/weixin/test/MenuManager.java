@@ -70,7 +70,7 @@ public class MenuManager {
 		ViewButton btn23 = new ViewButton();
 		btn23.setName("课程论坛");
 		btn23.setType("view");
-		btn23.setUrl("http://www.baidu.com");
+		btn23.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfc8eae6dd688043e&redirect_uri=http%3a%2f%2fweixin.411097240qqcom.yxnat.softdev.top%2fcourseLearning_weixin%2ftoH5CommentList&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
 
 		ViewButton btn31 = new ViewButton();
 		btn31.setName("申请入班");

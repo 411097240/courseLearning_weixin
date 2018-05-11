@@ -1,6 +1,8 @@
 package com.able.courseLearning_weixin.common.dto;
 
-public class JoinClassApplyDto {
+import java.io.Serializable;
+
+public class JoinClassApplyDto implements Serializable {
     private Integer classId;
     private String openId;
     private String userName;

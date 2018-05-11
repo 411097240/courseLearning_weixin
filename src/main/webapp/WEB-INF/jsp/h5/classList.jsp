@@ -35,7 +35,7 @@
 					<div class="swiper-slide"  style="background-image:url('images/v1.png')">
 
 						<div class="renwu">
-							<img src="images/ren1.png" alt="">
+							<img src="${item.classImg}" alt="">
 						</div>
 
 						<div class="num">
